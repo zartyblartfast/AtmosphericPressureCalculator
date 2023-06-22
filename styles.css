@@ -13,13 +13,12 @@ header {
 main {
   padding: 20px;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .input-section {
   margin-bottom: 20px;
-  flex-basis: 100%;
 }
 
 .output-section {
@@ -28,7 +27,7 @@ main {
 
 .visualization-section {
   text-align: center;
-  flex-basis: 100%;
+  margin-top: 20px;
 }
 
 #atmosphere-visualization {
