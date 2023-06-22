@@ -27,7 +27,27 @@ main {
   width: 100%;
 }
 
-.input-section label, .input-section input, .output-section p {
+.input-section label {
+  display: block;
+}
+
+.input-section input[type="range"],
+.input-section span {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.input-section span {
+  margin-left: 10px;
+  width: 60px;
+}
+
+.input-section input[type="range"] {
+  margin-top: 10px;
+  width: 80%;
+}
+
+.output-section p {
   display: block;
 }
 
@@ -36,9 +56,4 @@ main {
   flex-direction: column;
   align-items: flex-start;
   flex-grow: 1;
-}
-
-.input-section input {
-  margin-top: 10px;
-  width: 80%;
 }
