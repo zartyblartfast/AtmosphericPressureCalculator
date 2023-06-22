@@ -3,7 +3,6 @@ const seaLevelPressureInput = document.getElementById('sea-level-pressure');
 const temperatureLapseRateInput = document.getElementById('temperature-lapse-rate');
 const altitudeInput = document.getElementById('altitude');
 const standardTemperatureInput = document.getElementById('standard-temperature');
-const calculateBtn = document.getElementById('calculate-btn');
 const calculatedPressureOutput = document.getElementById('calculated-pressure');
 
 // Set default values for input fields
@@ -11,6 +10,44 @@ seaLevelPressureInput.value = '1013.25';
 temperatureLapseRateInput.value = '6.5';
 altitudeInput.value = '0';
 standardTemperatureInput.value = (288.15 - 273.15).toFixed(2); // Convert Kelvin to Celsius and round to 2 decimal places
+
+let sliders = [seaLevelPressureInput, temperatureLapseRateInput, altitudeInput, standardTemperatureInput];
+
+let chartData = {
+  labels: [...Array(101).keys()],
+  datasets: [{
+    label: 'Atmospheric Pressure',
+    data: [],
+    fill: false,
+    borderColor: 'rgb(75, 192, 192)',
+    tension: 0.1
+  }]
+};
+
+let chartConfig = {
+  type: 'line',
+  data: chartData,
+  options: {
+    responsive: true,
+    scales: {
+      x: {
+        title: {
+          display: true,
+          text: 'Altitude (km)'
+        }
+      },
+      y: {
+        title: {
+          display: true,
+          text: 'Pressure (hPa)'
+        }
+      }
+    }
+  }
+};
+
+// create the chart
+let chart = new Chart(document.getElementById('atmosphere-visualization'), chartConfig);
 
 // Function to calculate atmospheric pressure
 function calculatePressure() {
@@ -30,58 +67,23 @@ function calculatePressure() {
   calculatedPressureOutput.textContent = calculatedPressure.toFixed(2) + ' hPa';
 
   // Generate the atmosphere visualization
-  generateAtmosphereVisualization(calculatedPressure);
+  generateAtmosphereVisualization(seaLevelPressure, temperatureLapseRate, standardTemperatureKelvin);
 }
 
 // Function to generate the visual representation of the atmosphere
-function generateAtmosphereVisualization(calculatedPressure) {
-  const ctx = document.getElementById('atmosphere-visualization').getContext('2d');
-
-  // Create the bar chart
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: ['Sea Level', 'Altitude'],
-      datasets: [{
-        label: 'Atmospheric Pressure',
-        data: [seaLevelPressureInput.value, calculatedPressure],
-        backgroundColor: [
-          'rgba(0, 123, 255, 0.8)', // Blue color for sea level
-          'rgba(255, 0, 0, 0.8)'     // Red color for altitude
-        ],
-        borderColor: 'rgba(0, 0, 0, 1)',
-        borderWidth: 1
-      }]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        x: {
-          grid: {
-            display: false
-          }
-        },
-        y: {
-          beginAtZero: true,
-          ticks: {
-            stepSize: 100,
-            callback: function (value) {
-              return value + ' hPa';
-            }
-          }
-        }
-      },
-      plugins: {
-        legend: {
-          display: false
-        }
-      }
-    }
+function generateAtmosphereVisualization(seaLevelPressure, temperatureLapseRate, standardTemperatureKelvin) {
+  let data = chartData.labels.map(altitude => {
+    return seaLevelPressure * Math.exp((-1 * altitude) / (temperatureLapseRate * standardTemperatureKelvin));
   });
+
+  chart.data.datasets[0].data = data;
+  chart.update();
 }
 
-// Add event listener to the calculate button
-calculateBtn.addEventListener('click', calculatePressure);
+// Add event listener to the sliders
+sliders.forEach(slider => {
+  slider.addEventListener('input', calculatePressure);
+});
 
 // Generate the atmosphere visualization with default values
-generateAtmosphereVisualization(1013.25);
+calculatePressure();
