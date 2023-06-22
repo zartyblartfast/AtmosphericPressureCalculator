@@ -15,29 +15,31 @@
   </header>
 
   <main>
-    <section class="input-section">
-      <h2>Inputs</h2>
-      <!-- Input fields and calculate button -->
-      <label for="sea-level-pressure">Pressure at Sea Level (hPa):</label>
-      <input type="number" id="sea-level-pressure" min="0" step="any" required>
+    <div class="input-output-container">
+      <section class="input-section">
+        <h2>Inputs</h2>
+        <!-- Input fields and calculate button -->
+        <label for="sea-level-pressure">Pressure at Sea Level (hPa):</label>
+        <input type="number" id="sea-level-pressure" min="0" step="any" required>
 
-      <label for="temperature-lapse-rate">Temperature Lapse Rate (°C/km):</label>
-      <input type="number" id="temperature-lapse-rate" step="any" required>
+        <label for="temperature-lapse-rate">Temperature Lapse Rate (°C/km):</label>
+        <input type="number" id="temperature-lapse-rate" step="any" required>
 
-      <label for="altitude">Altitude (km):</label>
-      <input type="number" id="altitude" min="0" step="any" required>
+        <label for="altitude">Altitude (km):</label>
+        <input type="number" id="altitude" min="0" step="any" required>
 
-      <label for="standard-temperature">Standard Temperature (K):</label>
-      <input type="number" id="standard-temperature" min="0" step="any" required>
+        <label for="standard-temperature">Standard Temperature (K):</label>
+        <input type="number" id="standard-temperature" min="0" step="any" required>
 
-      <button id="calculate-btn">Calculate</button>
-    </section>
+        <button id="calculate-btn">Calculate</button>
+      </section>
 
-    <section class="output-section">
-      <h2>Outputs</h2>
-      <!-- Output labels for calculated pressure -->
-      <p>Calculated Pressure: <span id="calculated-pressure"></span> hPa</p>
-    </section>
+      <section class="output-section">
+        <h2>Outputs</h2>
+        <!-- Output labels for calculated pressure -->
+        <p>Calculated Pressure: <span id="calculated-pressure"></span> hPa</p>
+      </section>
+    </div>
 
     <section class="visualization-section">
       <h2>Visualizations</h2>
