@@ -79,6 +79,8 @@ function generatePressureChart(seaLevelPressure, temperatureLapseRate, standardT
       responsive: true,
       scales: {
         x: {
+          min: 0,
+          max: 100,
           title: {
             display: true,
             text: 'Altitude (km)'
@@ -101,7 +103,6 @@ function generatePressureChart(seaLevelPressure, temperatureLapseRate, standardT
   });
 }
 
-// Function to update the graph and calculation
 function update() {
   // Parse input values
   let seaLevelPressure = parseFloat(seaLevelPressureInput.value);
@@ -109,10 +110,10 @@ function update() {
   let altitude = parseFloat(altitudeInput.value);
   let standardTemperature = parseFloat(standardTemperatureInput.value);
 
-  // Ensure altitude is not zero
-  if (altitude === 0) {
-    altitude = 0.001;
-    altitudeInput.value = altitude.toFixed(3);
+  // Basic input validation
+  if (isNaN(seaLevelPressure) || isNaN(temperatureLapseRate) || isNaN(altitude) || isNaN(standardTemperature)) {
+    calculatedPressureOutput.textContent = "Invalid input";
+    return;
   }
 
   // Update displayed input values
