@@ -6,6 +6,12 @@ const standardTemperatureInput = document.getElementById('standard-temperature')
 const calculateBtn = document.getElementById('calculate-btn');
 const calculatedPressureOutput = document.getElementById('calculated-pressure');
 
+// Set default values for input fields
+seaLevelPressureInput.value = '1013.25';
+temperatureLapseRateInput.value = '6.5';
+altitudeInput.value = '0';
+standardTemperatureInput.value = '288.15';
+
 // Event listener for calculate button
 calculateBtn.addEventListener('click', calculatePressure);
 
