@@ -38,16 +38,6 @@ main {
   flex-grow: 1;
 }
 
-#calculate-btn {
+.input-section input {
   margin-top: 10px;
-  margin-bottom: 20px;
-  display: block;
-}
-
-#atmosphere-visualization {
-  margin-bottom: 20px;
-}
-
-#chart-visualization {
-  margin-top: 20px;
-}
+  width: 80
