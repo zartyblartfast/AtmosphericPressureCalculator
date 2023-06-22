@@ -28,23 +28,22 @@ main {
 }
 
 .input-section label {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 10px;
 }
 
-.input-section input[type="range"],
-.input-section span {
-  display: inline-block;
-  vertical-align: middle;
+.input-section input[type="range"] {
+  flex-grow: 1;
+  margin-left: 10px;
 }
 
 .input-section span {
   margin-left: 10px;
-  width: 60px;
-}
-
-.input-section input[type="range"] {
-  margin-top: 10px;
-  width: 80%;
+  min-width: 60px;
+  text-align: right;
 }
 
 .output-section p {
