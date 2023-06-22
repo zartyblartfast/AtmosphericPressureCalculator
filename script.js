@@ -12,9 +12,6 @@ temperatureLapseRateInput.value = '6.5';
 altitudeInput.value = '0';
 standardTemperatureInput.value = (288.15 - 273.15).toFixed(2); // Convert Kelvin to Celsius and round to 2 decimal places
 
-// Event listener for calculate button
-calculateBtn.addEventListener('click', calculatePressure);
-
 // Function to calculate atmospheric pressure
 function calculatePressure() {
   // Retrieve user inputs
@@ -33,11 +30,11 @@ function calculatePressure() {
   calculatedPressureOutput.textContent = calculatedPressure.toFixed(2) + ' hPa';
 
   // Generate the atmosphere visualization
-  generateAtmosphereVisualization(calculatedPressure);
+  generateAtmosphereVisualization();
 }
 
 // Function to generate the visual representation of the atmosphere
-function generateAtmosphereVisualization(calculatedPressure) {
+function generateAtmosphereVisualization() {
   const ctx = document.getElementById('atmosphere-visualization').getContext('2d');
 
   // Create the bar chart
@@ -47,7 +44,7 @@ function generateAtmosphereVisualization(calculatedPressure) {
       labels: ['Sea Level', 'Altitude'],
       datasets: [{
         label: 'Atmospheric Pressure',
-        data: [seaLevelPressureInput.value, calculatedPressure],
+        data: [seaLevelPressureInput.value, 0], // Placeholder value for altitude
         backgroundColor: [
           'rgba(0, 123, 255, 0.8)', // Blue color for sea level
           'rgba(255, 0, 0, 0.8)'     // Red color for altitude
@@ -83,6 +80,8 @@ function generateAtmosphereVisualization(calculatedPressure) {
   });
 }
 
-// Call the visualization functions
+// Event listener for calculate button
+calculateBtn.addEventListener('click', calculatePressure);
+
+// Call the visualization function
 generateAtmosphereVisualization();
-generateChartVisualization();
