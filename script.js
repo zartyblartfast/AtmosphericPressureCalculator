@@ -10,7 +10,8 @@ const calculatedPressureOutput = document.getElementById('calculated-pressure');
 seaLevelPressureInput.value = '1013.25';
 temperatureLapseRateInput.value = '6.5';
 altitudeInput.value = '0';
-standardTemperatureInput.value = '288.15';
+standardTemperatureInput.value = (288.15 - 273.15).toFixed(2); // Convert Kelvin to Celsius and round to 2 decimal places
+
 
 // Event listener for calculate button
 calculateBtn.addEventListener('click', calculatePressure);
