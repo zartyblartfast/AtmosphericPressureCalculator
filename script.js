@@ -43,7 +43,7 @@ function calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, sta
 let chart;
 
 // Function to generate chart
-function generatePressureChart(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature) {
+function generatePressureChart(seaLevelPressure, temperatureLapseRate, standardTemperature) {
   const ctx = document.getElementById('pressure-chart').getContext('2d');
   
   // Data for chart
@@ -59,7 +59,7 @@ function generatePressureChart(seaLevelPressure, temperatureLapseRate, altitude,
   };
   
   // Generate data
-  for (let i = 0; i <= altitude; i += 0.1) {
+  for (let i = 0; i <= 100; i += 0.1) { // Fixed range to 100 Km
     data.labels.push(i.toFixed(1));
     let pressureAtAltitude = calculatePressure(seaLevelPressure, temperatureLapseRate, i, standardTemperature);
     
@@ -121,12 +121,12 @@ function update() {
   altitudeValue.textContent = altitude.toFixed(2);
   standardTemperatureValue.textContent = standardTemperature.toFixed(2);
 
-  // Calculate the pressure
+  // Calculate the pressure using the user's altitude input
   const calculatedPressure = calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature);
   calculatedPressureOutput.textContent = calculatedPressure.toFixed(2);
 
   // Generate the pressure chart
-  generatePressureChart(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature);
+  generatePressureChart(seaLevelPressure, temperatureLapseRate, standardTemperature);
 }
 
 // Add event listeners to input fields
