@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Atmospheric Pressure Visualizer</title>
+</head>
+
+<body>
+  <header>
+    <h1>Atmospheric Pressure Visualizer</h1>
+    <p>Explore the relationship between altitude and atmospheric pressure</p>
+  </header>
+
+  <main>
+    <section class="input-section">
+      <h2>Inputs</h2>
+      <!-- Input fields and calculate button -->
+      <label for="sea-level-pressure">Pressure at Sea Level (hPa):</label>
+      <input type="number" id="sea-level-pressure" min="0" step="any" required>
+
+      <label for="temperature-lapse-rate">Temperature Lapse Rate (°C/km):</label>
+      <input type="number" id="temperature-lapse-rate" step="any" required>
+
+      <label for="altitude">Altitude (km):</label>
+      <input type="number" id="altitude" min="0" step="any" required>
+
+      <label for="standard-temperature">Standard Temperature (K):</label>
+      <input type="number" id="standard-temperature" min="0" step="any" required>
+
+      <button id="calculate-btn">Calculate</button>
+    </section>
+
+    <section class="output-section">
+      <h2>Outputs</h2>
+      <!-- Output labels for calculated pressure -->
+      <p>Calculated Pressure: <span id="calculated-pressure"></span> hPa</p>
+    </section>
+
+    <section class="visualization-section">
+      <h2>Visualizations</h2>
+      <!-- Visualization of atmosphere as a column/line and the chart -->
+      <div id="atmosphere-visualization"></div>
+      <div id="chart-visualization"></div>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
