@@ -80,8 +80,5 @@ function generateAtmosphereVisualization() {
   });
 }
 
-// Event listener for calculate button
-calculateBtn.addEventListener('click', calculatePressure);
-
 // Call the visualization function
 generateAtmosphereVisualization();
