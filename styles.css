@@ -7,12 +7,12 @@ body {
 header {
   text-align: center;
   background-color: #f0f0f0;
-  padding: 10px;
+  padding: 2px;
 }
 
 main {
   display: flex;
-  padding: 10px;
+  padding: 2px;
   align-items: flex-start;
 }
 
