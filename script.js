@@ -17,10 +17,11 @@ let calculatedPressureOutput = document.getElementById('calculated-pressure');
 function calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature) {
   const g = 9.80665; // gravitational acceleration (m/s^2)
   const R = 287.053; // specific gas constant for dry air (J/(kg*K))
-  const seaLevelTemperature = standardTemperature + temperatureLapseRate * altitude; // Temperature at sea level (K)
+  const altitudeTemperature = standardTemperature - temperatureLapseRate * altitude; // Temperature at given altitude (K)
   
-  return seaLevelPressure * Math.exp((-g * altitude * 1000) / (R * seaLevelTemperature));
+  return seaLevelPressure * Math.exp((-g * altitude * 1000) / (R * altitudeTemperature));
 }
+
 
 // Chart.js instance
 let chart;
