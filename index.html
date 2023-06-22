@@ -20,19 +20,19 @@
         <h2>Inputs</h2>
         <!-- Input fields and calculate button -->
         <label for="sea-level-pressure">Pressure at Sea Level (hPa):</label>
-        <input type="range" id="sea-level-pressure" min="800" max="1100" step="any" required>
+        <input type="range" id="sea-level-pressure" min="800" max="1100" step="any" value="1013.25" required>
         <span id="sea-level-pressure-value"></span>
 
         <label for="temperature-lapse-rate">Temperature Lapse Rate (K/m):</label>
-        <input type="range" id="temperature-lapse-rate" min="0" max="0.02" step="any" required>
+        <input type="range" id="temperature-lapse-rate" min="0" max="0.02" step="any" value="0.0065" required>
         <span id="temperature-lapse-rate-value"></span>
 
         <label for="altitude">Altitude (km):</label>
-        <input type="range" id="altitude" min="0" max="100" step="any" required>
+        <input type="range" id="altitude" min="0" max="100" step="any" value="0" required>
         <span id="altitude-value"></span>
 
-        <label for="standard-temperature">Standard Temperature (C):</label>
-        <input type="range" id="standard-temperature" min="-50" max="50" step="any" required>
+        <label for="standard-temperature">Standard Temperature (°C):</label>
+        <input type="range" id="standard-temperature" min="-50" max="50" step="any" value="15" required>
         <span id="standard-temperature-value"></span>
       </section>
       <section class="output-section">
