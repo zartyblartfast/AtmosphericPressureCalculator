@@ -12,9 +12,6 @@ temperatureLapseRateInput.value = '6.5';
 altitudeInput.value = '0';
 standardTemperatureInput.value = (288.15 - 273.15).toFixed(2); // Convert Kelvin to Celsius and round to 2 decimal places
 
-// Event listener for calculate button
-calculateBtn.addEventListener('click', calculatePressure);
-
 // Function to calculate atmospheric pressure
 function calculatePressure() {
   // Retrieve user inputs
@@ -83,5 +80,8 @@ function generateAtmosphereVisualization(calculatedPressure) {
   });
 }
 
-// Call the calculatePressure function initially to display the default values and generate Visual 1
-calculatePressure();
+// Add event listener to the calculate button
+calculateBtn.addEventListener('click', calculatePressure);
+
+// Generate the atmosphere visualization with default values
+generateAtmosphereVisualization(1013.25);
