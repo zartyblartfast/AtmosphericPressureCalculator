@@ -109,17 +109,13 @@ function update() {
 
   // Update displayed input values
   seaLevelPressureValue.textContent = seaLevelPressure.toFixed(2);
-  temperatureLapseRateValue.textContent = temperatureLapseRate.toFixed(4); // Display as K/m
+  temperatureLapseRateValue.textContent = (temperatureLapseRate * 1000).toFixed(4); // Display as K/km
   altitudeValue.textContent = altitude.toFixed(2);
   standardTemperatureValue.textContent = standardTemperature.toFixed(2);
 
   // Calculate the pressure
-  const calculatedPressure = calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature);
-  calculatedPressureOutput.textContent = calculatedPressure.toFixed(2) + ' hPa';
+  const calculatedPressure = calculatePressure(seaLevelPressure, temperatureLapseRate, altitude,
 
-  // Update the chart
-  generatePressureChart(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature);
-}
 
 // Add event listeners to input fields
 seaLevelPressureInput.addEventListener('input', update);
