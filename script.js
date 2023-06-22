@@ -20,10 +20,12 @@ function calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, sta
 
   // Adjust standard temperature from Celsius to Kelvin
   const standardTemperatureK = standardTemperature + 273.15;
-  const altitudeTemperatureK = standardTemperatureK - temperatureLapseRate * altitude * 1000; // Temperature at given altitude (K)
+
+  // Calculate temperature at altitude
+  const altitudeTemperature = standardTemperatureK - (temperatureLapseRate * altitude * 1000); // Temperature at given altitude (K)
 
   // Calculate pressure at altitude using the barometric formula
-  const pressure = seaLevelPressure * (altitudeTemperatureK / standardTemperatureK) ** (-g / (temperatureLapseRate * R));
+  const pressure = seaLevelPressure * Math.pow((altitudeTemperature / standardTemperatureK), (-g / (temperatureLapseRate * R)));
 
   return pressure;
 }
