@@ -30,11 +30,11 @@ function calculatePressure() {
   calculatedPressureOutput.textContent = calculatedPressure.toFixed(2) + ' hPa';
 
   // Generate the atmosphere visualization
-  generateAtmosphereVisualization();
+  generateAtmosphereVisualization(calculatedPressure);
 }
 
 // Function to generate the visual representation of the atmosphere
-function generateAtmosphereVisualization() {
+function generateAtmosphereVisualization(calculatedPressure) {
   const ctx = document.getElementById('atmosphere-visualization').getContext('2d');
 
   // Create the bar chart
@@ -44,7 +44,7 @@ function generateAtmosphereVisualization() {
       labels: ['Sea Level', 'Altitude'],
       datasets: [{
         label: 'Atmospheric Pressure',
-        data: [seaLevelPressureInput.value, 0], // Placeholder value for altitude
+        data: [seaLevelPressureInput.value, calculatedPressure],
         backgroundColor: [
           'rgba(0, 123, 255, 0.8)', // Blue color for sea level
           'rgba(255, 0, 0, 0.8)'     // Red color for altitude
@@ -68,7 +68,6 @@ function generateAtmosphereVisualization() {
             callback: function (value) {
               return value + ' hPa';
             }
-          }
         }
       },
       plugins: {
@@ -78,7 +77,11 @@ function generateAtmosphereVisualization() {
       }
     }
   });
+
+  // Update the chart with the calculated pressure
+  atmosphereChart.data.datasets[0].data[1] = calculatedPressure;
+  atmosphereChart.update();
 }
 
 // Call the visualization function
-generateAtmosphereVisualization();
+generateAtmosphereVisualization(1013.25);
