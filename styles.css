@@ -20,7 +20,7 @@ main {
 .input-output-container {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   margin-right: 20px;
 }
 
@@ -28,16 +28,21 @@ main {
   width: 100%;
 }
 
+.input-section label, .input-section input, .output-section p {
+  display: block;
+}
+
 .visualization-section {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
   flex-grow: 1;
 }
 
 #calculate-btn {
   margin-top: 10px;
   margin-bottom: 20px;
+  display: block;
 }
 
 #atmosphere-visualization {
