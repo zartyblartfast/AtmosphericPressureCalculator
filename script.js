@@ -41,7 +41,7 @@ function generateAtmosphereVisualization(calculatedPressure) {
   const ctx = document.getElementById('atmosphere-visualization').getContext('2d');
 
   // Create the bar chart
-  const atmosphereChart = new Chart(ctx, {
+  new Chart(ctx, {
     type: 'bar',
     data: {
       labels: ['Sea Level', 'Altitude'],
@@ -81,11 +81,7 @@ function generateAtmosphereVisualization(calculatedPressure) {
       }
     }
   });
-
-  // Update the chart with the calculated pressure
-  atmosphereChart.data.datasets[0].data[1] = calculatedPressure;
-  atmosphereChart.update();
 }
 
-// Call the visualization function
-generateAtmosphereVisualization(1013.25);
+// Call the calculatePressure function initially to display the default values and generate Visual 1
+calculatePressure();
