@@ -1,0 +1,35 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  text-align: center;
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+main {
+  padding: 20px;
+}
+
+.input-section {
+  margin-bottom: 20px;
+}
+
+.output-section {
+  margin-bottom: 20px;
+}
+
+.visualization-section {
+  text-align: center;
+}
+
+#atmosphere-visualization {
+  margin-bottom: 20px;
+}
+
+#chart-visualization {
+  margin-top: 20px;
+}
