@@ -17,15 +17,16 @@ let calculatedPressureOutput = document.getElementById('calculated-pressure');
 function calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature) {
   const g = 9.80665; // gravitational acceleration (m/s^2)
   const R = 287.053; // specific gas constant for dry air (J/(kg*K))
-  const altitudeTemperature = standardTemperature - temperatureLapseRate * altitude; // Temperature at given altitude (K)
 
-  // Debugging statements
-  console.log('Altitude temperature: ', altitudeTemperature);
-  
+  // Adjust temperature lapse rate from °C/km to K/m
+  const adjustedTemperatureLapseRate = temperatureLapseRate / 1000;
+
+  // Adjust standard temperature from Celsius to Kelvin
+  const standardTemperatureK = standardTemperature + 273.15;
+
+  const altitudeTemperature = standardTemperatureK - adjustedTemperatureLapseRate * altitude * 1000; // Temperature at given altitude (K)
   const pressure = seaLevelPressure * Math.exp((-g * altitude * 1000) / (R * altitudeTemperature));
-  
-  console.log('Calculated pressure: ', pressure);
-  
+
   return pressure;
 }
 
@@ -52,8 +53,6 @@ function generatePressureChart(seaLevelPressure, temperatureLapseRate, altitude,
   for (let i = 0; i <= altitude; i += 0.1) {
     data.labels.push(i.toFixed(1));
     let pressureAtAltitude = calculatePressure(seaLevelPressure, temperatureLapseRate, i, standardTemperature);
-
-    console.log(`Altitude: ${i}, Pressure: ${pressureAtAltitude}`);
     
     data.datasets[0].data.push(pressureAtAltitude);
   }
@@ -109,7 +108,7 @@ function update() {
 
   // Update displayed input values
   seaLevelPressureValue.textContent = seaLevelPressure.toFixed(2);
-  temperatureLapseRateValue.textContent = temperatureLapseRate.toFixed(2);
+  temperatureLapseRateValue.textContent = (temperatureLapseRate / 1000).toFixed(4); // Display as K/m
   altitudeValue.textContent = altitude.toFixed(2);
   standardTemperatureValue.textContent = standardTemperature.toFixed(2);
 
