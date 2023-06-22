@@ -116,6 +116,11 @@ function update() {
     return;
   }
 
+  console.log("Sea Level Pressure: " + seaLevelPressure);
+  console.log("Temperature Lapse Rate: " + temperatureLapseRate);
+  console.log("Altitude: " + altitude);
+  console.log("Standard Temperature: " + standardTemperature);
+
   // Update displayed input values
   seaLevelPressureValue.textContent = seaLevelPressure.toFixed(2);
   temperatureLapseRateValue.textContent = (temperatureLapseRate * 1000).toFixed(4); // Display as K/km
