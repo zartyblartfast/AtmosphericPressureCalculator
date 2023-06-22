@@ -16,16 +16,29 @@ main {
 }
 
 .input-section {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
   margin-right: 20px;
 }
 
 .output-section {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
   margin-top: 20px;
 }
 
 .visualization-section {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
   flex-grow: 1;
+}
+
+#calculate-btn {
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 #atmosphere-visualization {
