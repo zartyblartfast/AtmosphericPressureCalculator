@@ -101,32 +101,19 @@ function generatePressureChart(seaLevelPressure, temperatureLapseRate, altitude,
   });
 }
 
-// Function to calculate pressure
-function calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature) {
-  const g = 9.80665; // gravitational acceleration
-  const m = 0.0289644; // molar mass of dry air
-  const R = 8.3144598; // universal gas constant
+// Function to update the graph and calculation
+function update() {
+  // Parse input values
+  let seaLevelPressure = parseFloat(seaLevelPressureInput.value);
+  let temperatureLapseRate = parseFloat(temperatureLapseRateInput.value);
+  let altitude = parseFloat(altitudeInput.value);
+  let standardTemperature = parseFloat(standardTemperatureInput.value);
 
-  // Adjust temperature lapse rate from K/m to K/km
-  const adjustedTemperatureLapseRate = temperatureLapseRate * 1000;
-
-  // Calculate the temperature at the given altitude
-  let temperatureAtAltitude = standardTemperature - (adjustedTemperatureLapseRate * altitude);
-
-  // Ensure temperature doesn't go below absolute zero
-  if (temperatureAtAltitude < -273.15) {
-    temperatureAtAltitude = -273.15;
+  // Ensure altitude is not zero
+  if (altitude === 0) {
+    altitude = 0.001;
+    altitudeInput.value = altitude.toFixed(3);
   }
-
-  // Adjust temperature from Celsius to Kelvin
-  const temperatureAtAltitudeK = temperatureAtAltitude + 273.15;
-
-  // Calculate the pressure at the given altitude
-  const pressure = seaLevelPressure * Math.exp(-(g * m * altitude * 1000) / (R * temperatureAtAltitudeK));
-
-  return pressure;
-}
-
 
   // Update displayed input values
   seaLevelPressureValue.textContent = seaLevelPressure.toFixed(2);
@@ -135,8 +122,12 @@ function calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, sta
   standardTemperatureValue.textContent = standardTemperature.toFixed(2);
 
   // Calculate the pressure
-  const calculatedPressure = calculatePressure(seaLevelPressure, temperatureLapseRate, altitude,
+  const calculatedPressure = calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature);
+  calculatedPressureOutput.textContent = calculatedPressure.toFixed(2);
 
+  // Generate the pressure chart
+  generatePressureChart(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature);
+}
 
 // Add event listeners to input fields
 seaLevelPressureInput.addEventListener('input', update);
