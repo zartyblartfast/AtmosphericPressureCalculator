@@ -15,18 +15,26 @@ let calculatedPressureOutput = document.getElementById('calculated-pressure');
 
 // Function to calculate pressure
 function calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature) {
-  const g = 9.80665; // gravitational acceleration (m/s^2)
-  const M = 0.0289644; // molar mass of Earth's air (kg/mol)
-  const R = 8.31447; // universal gas constant (J/(mol*K))
+  const g = 9.80665; // gravitational acceleration
+  const m = 0.0289644; // molar mass of dry air
+  const R = 8.3144598; // universal gas constant
 
   // Adjust temperature lapse rate from K/m to K/km
   const adjustedTemperatureLapseRate = temperatureLapseRate * 1000;
 
-  // Adjust standard temperature from Celsius to Kelvin
-  const standardTemperatureK = standardTemperature + 273.15;
+  // Calculate the temperature at the given altitude
+  let temperatureAtAltitude = standardTemperature - (adjustedTemperatureLapseRate * altitude);
+
+  // Ensure temperature doesn't go below absolute zero
+  if (temperatureAtAltitude < -273.15) {
+    temperatureAtAltitude = -273.15;
+  }
+
+  // Adjust temperature from Celsius to Kelvin
+  const temperatureAtAltitudeK = temperatureAtAltitude + 273.15;
 
   // Calculate the pressure at the given altitude
-  const pressure = seaLevelPressure * Math.pow((1 - ((adjustedTemperatureLapseRate * altitude) / standardTemperatureK)), (g * M / (R * adjustedTemperatureLapseRate)));
+  const pressure = seaLevelPressure * Math.exp(-(g * m * altitude * 1000) / (R * temperatureAtAltitudeK));
 
   return pressure;
 }
@@ -93,19 +101,32 @@ function generatePressureChart(seaLevelPressure, temperatureLapseRate, altitude,
   });
 }
 
-// Function to update the graph and calculation
-function update() {
-  // Parse input values
-  let seaLevelPressure = parseFloat(seaLevelPressureInput.value);
-  let temperatureLapseRate = parseFloat(temperatureLapseRateInput.value);
-  let altitude = parseFloat(altitudeInput.value);
-  let standardTemperature = parseFloat(standardTemperatureInput.value);
+// Function to calculate pressure
+function calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature) {
+  const g = 9.80665; // gravitational acceleration
+  const m = 0.0289644; // molar mass of dry air
+  const R = 8.3144598; // universal gas constant
 
-  // Ensure altitude is not zero
-  if (altitude === 0) {
-    altitude = 0.001;
-    altitudeInput.value = altitude.toFixed(3);
+  // Adjust temperature lapse rate from K/m to K/km
+  const adjustedTemperatureLapseRate = temperatureLapseRate * 1000;
+
+  // Calculate the temperature at the given altitude
+  let temperatureAtAltitude = standardTemperature - (adjustedTemperatureLapseRate * altitude);
+
+  // Ensure temperature doesn't go below absolute zero
+  if (temperatureAtAltitude < -273.15) {
+    temperatureAtAltitude = -273.15;
   }
+
+  // Adjust temperature from Celsius to Kelvin
+  const temperatureAtAltitudeK = temperatureAtAltitude + 273.15;
+
+  // Calculate the pressure at the given altitude
+  const pressure = seaLevelPressure * Math.exp(-(g * m * altitude * 1000) / (R * temperatureAtAltitudeK));
+
+  return pressure;
+}
+
 
   // Update displayed input values
   seaLevelPressureValue.textContent = seaLevelPressure.toFixed(2);
