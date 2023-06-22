@@ -34,7 +34,6 @@ function calculatePressure() {
   calculatedPressureOutput.textContent = calculatedPressure.toFixed(2) + ' hPa';
 }
 
-
 // Function to generate the visual representation of the atmosphere
 function generateAtmosphereVisualization() {
   // Generate the visualization of the atmosphere as a column/line
