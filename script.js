@@ -18,14 +18,12 @@ function calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, sta
   const g = 9.80665; // gravitational acceleration (m/s^2)
   const R = 287.053; // specific gas constant for dry air (J/(kg*K))
 
-  // Adjust temperature lapse rate from °C/km to K/m
-  const adjustedTemperatureLapseRate = temperatureLapseRate / 1000;
-
   // Adjust standard temperature from Celsius to Kelvin
   const standardTemperatureK = standardTemperature + 273.15;
+  const altitudeTemperatureK = standardTemperatureK - temperatureLapseRate * altitude * 1000; // Temperature at given altitude (K)
 
-  const altitudeTemperature = standardTemperatureK - adjustedTemperatureLapseRate * altitude * 1000; // Temperature at given altitude (K)
-  const pressure = seaLevelPressure * Math.exp((-g * altitude * 1000) / (R * altitudeTemperature));
+  // Calculate pressure at altitude using the barometric formula
+  const pressure = seaLevelPressure * (altitudeTemperatureK / standardTemperatureK) ** (-g / (temperatureLapseRate * R));
 
   return pressure;
 }
@@ -108,7 +106,7 @@ function update() {
 
   // Update displayed input values
   seaLevelPressureValue.textContent = seaLevelPressure.toFixed(2);
-  temperatureLapseRateValue.textContent = (temperatureLapseRate / 1000).toFixed(4); // Display as K/m
+  temperatureLapseRateValue.textContent = temperatureLapseRate.toFixed(4); // Display as K/m
   altitudeValue.textContent = altitude.toFixed(2);
   standardTemperatureValue.textContent = standardTemperature.toFixed(2);
 
