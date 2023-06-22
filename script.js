@@ -36,9 +36,9 @@ function calculatePressureData() {
   let labels = [];
   let values = [];
 
-  for (let i = 0; i <= altitude; i++) {
+  for (let i = 0; i <= altitude; i += 0.01) {  // Increase loop step size to handle small altitude
     labels.push(i);
-    const pressure = seaLevelPressure * Math.exp((-1 * i) / (temperatureLapseRate * standardTemperatureKelvin));
+    const pressure = seaLevelPressure * Math.exp((-1 * (i + 0.001)) / (temperatureLapseRate * standardTemperatureKelvin));
     values.push(pressure.toFixed(2));
   }
 
