@@ -11,15 +11,15 @@ header {
 }
 
 main {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
   padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .input-section {
-  margin-right: 20px;
+  margin-bottom: 20px;
+  flex-basis: 100%;
 }
 
 .output-section {
@@ -28,7 +28,7 @@ main {
 
 .visualization-section {
   text-align: center;
-  flex-grow: 1;
+  flex-basis: 100%;
 }
 
 #atmosphere-visualization {
