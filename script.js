@@ -22,14 +22,18 @@ function calculatePressure() {
   const seaLevelPressure = parseFloat(seaLevelPressureInput.value);
   const temperatureLapseRate = parseFloat(temperatureLapseRateInput.value);
   const altitude = parseFloat(altitudeInput.value);
-  const standardTemperature = parseFloat(standardTemperatureInput.value);
+  const standardTemperatureCelsius = parseFloat(standardTemperatureInput.value);
 
-  // Perform calculations using the provided formula
-  // You can implement the barometric formula here
+  // Convert Celsius temperature to Kelvin
+  const standardTemperatureKelvin = standardTemperatureCelsius + 273.15;
+
+  // Calculate pressure using the provided formula
+  const calculatedPressure = seaLevelPressure * Math.exp((-1 * altitude) / (temperatureLapseRate * standardTemperatureKelvin));
 
   // Update the calculated pressure output
-  calculatedPressureOutput.textContent = calculatedPressure;
+  calculatedPressureOutput.textContent = calculatedPressure.toFixed(2) + ' hPa';
 }
+
 
 // Function to generate the visual representation of the atmosphere
 function generateAtmosphereVisualization() {
