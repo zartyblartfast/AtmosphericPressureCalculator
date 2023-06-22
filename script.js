@@ -12,17 +12,16 @@ temperatureLapseRateInput.value = '6.5';
 altitudeInput.value = '0';
 standardTemperatureInput.value = (288.15 - 273.15).toFixed(2); // Convert Kelvin to Celsius and round to 2 decimal places
 
-
 // Event listener for calculate button
 calculateBtn.addEventListener('click', calculatePressure);
 
 // Function to calculate atmospheric pressure
 function calculatePressure() {
-  // Retrieve user inputs or use default values
-  const seaLevelPressure = parseFloat(seaLevelPressureInput.value) || 1013.25;
-  const temperatureLapseRate = parseFloat(temperatureLapseRateInput.value) || 6.5;
-  const altitude = parseFloat(altitudeInput.value) || 0;
-  const standardTemperatureCelsius = parseFloat(standardTemperatureInput.value) || (288.15 - 273.15).toFixed(2);
+  // Retrieve user inputs
+  const seaLevelPressure = parseFloat(seaLevelPressureInput.value);
+  const temperatureLapseRate = parseFloat(temperatureLapseRateInput.value);
+  const altitude = parseFloat(altitudeInput.value);
+  const standardTemperatureCelsius = parseFloat(standardTemperatureInput.value);
 
   // Convert Celsius temperature to Kelvin
   const standardTemperatureKelvin = standardTemperatureCelsius + 273.15;
@@ -36,7 +35,6 @@ function calculatePressure() {
   // Generate the atmosphere visualization
   generateAtmosphereVisualization(calculatedPressure);
 }
-
 
 // Function to generate the visual representation of the atmosphere
 function generateAtmosphereVisualization(calculatedPressure) {
@@ -84,27 +82,6 @@ function generateAtmosphereVisualization(calculatedPressure) {
     }
   });
 }
-
-// Function to calculate atmospheric pressure
-function calculatePressure() {
-  // Retrieve user inputs
-  const seaLevelPressure = parseFloat(seaLevelPressureInput.value);
-  const temperatureLapseRate = parseFloat(temperatureLapseRateInput.value);
-  const altitude = parseFloat(altitudeInput.value);
-  const standardTemperatureCelsius = parseFloat(standardTemperatureInput.value);
-
-  // Convert Celsius temperature to Kelvin
-  const standardTemperatureKelvin = standardTemperatureCelsius + 273.15;
-
-  // Calculate pressure using the provided formula
-  const calculatedPressure = seaLevelPressure * Math.exp((-1 * altitude) / (temperatureLapseRate * standardTemperatureKelvin));
-
-  // Update the calculated pressure output
-  calculatedPressureOutput.textContent = calculatedPressure.toFixed(2) + ' hPa';
-
-  // Generate the atmosphere visualization
-  generateAtmosphereVisualization(calculatedPressure);
-
 
 // Call the visualization functions
 generateAtmosphereVisualization();
