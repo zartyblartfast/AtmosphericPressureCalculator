@@ -11,19 +11,24 @@ header {
 }
 
 main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
   padding: 20px;
 }
 
 .input-section {
-  margin-bottom: 20px;
+  margin-right: 20px;
 }
 
 .output-section {
-  margin-bottom: 20px;
+  margin-top: 20px;
 }
 
 .visualization-section {
   text-align: center;
+  flex-grow: 1;
 }
 
 #atmosphere-visualization {
