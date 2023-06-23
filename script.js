@@ -4,11 +4,11 @@ let temperatureLapseRateInput = document.getElementById('temperature-lapse-rate'
 let altitudeInput = document.getElementById('altitude');
 let standardTemperatureInput = document.getElementById('standard-temperature');
 
-// Variables for displaying input values
-let seaLevelPressureValue = document.getElementById('sea-level-pressure-value');
-let temperatureLapseRateValue = document.getElementById('temperature-lapse-rate-value');
-let altitudeValue = document.getElementById('altitude-value');
-let standardTemperatureValue = document.getElementById('standard-temperature-value');
+// Variables for numerical inputs
+let seaLevelPressureNumInput = document.getElementById('sea-level-pressure-number');
+let temperatureLapseRateNumInput = document.getElementById('temperature-lapse-rate-number');
+let altitudeNumInput = document.getElementById('altitude-number');
+let standardTemperatureNumInput = document.getElementById('standard-temperature-number');
 
 // Variable for displaying calculated pressure
 let calculatedPressureOutput = document.getElementById('calculated-pressure');
@@ -18,24 +18,13 @@ function calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, sta
   const g = 9.80665; // gravitational acceleration
   const m = 0.0289644; // molar mass of dry air
   const R = 8.3144598; // universal gas constant
-
-  // Adjust temperature lapse rate from K/m to K/km
   const adjustedTemperatureLapseRate = temperatureLapseRate * 1000;
-
-  // Calculate the temperature at the given altitude
   let temperatureAtAltitude = standardTemperature - (adjustedTemperatureLapseRate * altitude);
-
-  // Ensure temperature doesn't go below absolute zero
   if (temperatureAtAltitude < -273.15) {
     temperatureAtAltitude = -273.15;
   }
-
-  // Adjust temperature from Celsius to Kelvin
   const temperatureAtAltitudeK = temperatureAtAltitude + 273.15;
-
-  // Calculate the pressure at the given altitude
   const pressure = seaLevelPressure * Math.exp(-(g * m * altitude * 1000) / (R * temperatureAtAltitudeK));
-
   return pressure;
 }
 
@@ -45,33 +34,24 @@ let chart;
 // Function to generate chart
 function generatePressureChart(seaLevelPressure, temperatureLapseRate, standardTemperature) {
   const ctx = document.getElementById('pressure-chart').getContext('2d');
-  
-  // Data for chart
   let data = {
-    labels: [], // This array will be populated with altitude values
+    labels: [],
     datasets: [{
       label: 'Air Pressure (hPa)',
-      data: [], // This array will be populated with pressure values
+      data: [],
       fill: false,
       borderColor: 'rgb(75, 192, 192)',
       tension: 0.1
     }]
   };
-  
-  // Generate data
-  for (let i = 0; i <= 100; i += 0.1) { // Fixed range to 100 Km
+  for (let i = 0; i <= 100; i += 0.1) {
     data.labels.push(i.toFixed(1));
     let pressureAtAltitude = calculatePressure(seaLevelPressure, temperatureLapseRate, i, standardTemperature);
-    
     data.datasets[0].data.push(pressureAtAltitude);
   }
-  
-  // If chart exists, destroy it before creating a new one
   if (chart) {
     chart.destroy();
   }
-  
-  // Create new chart
   chart = new Chart(ctx, {
     type: 'line',
     data: data,
@@ -87,7 +67,7 @@ function generatePressureChart(seaLevelPressure, temperatureLapseRate, standardT
           },
           ticks: {
             callback: function(value) {
-              return Number(value).toFixed(0); // Display only integer values on the x-axis
+              return Number(value).toFixed(0);
             }
           }
         },
@@ -110,38 +90,51 @@ function update() {
   let altitude = parseFloat(altitudeInput.value);
   let standardTemperature = parseFloat(standardTemperatureInput.value);
 
-  // Basic input validation
-  if (isNaN(seaLevelPressure) || isNaN(temperatureLapseRate) || isNaN(altitude) || isNaN(standardTemperature)) {
-    calculatedPressureOutput.textContent = "Invalid input";
-    return;
-  }
+  // Update numerical inputs
+  seaLevelPressureNumInput.value = seaLevelPressure.toFixed(2);
+  temperatureLapseRateNumInput.value = (temperatureLapseRate * 1000).toFixed(4); // Display as K/km
+  altitudeNumInput.value = altitude.toFixed(2);
+  standardTemperatureNumInput.value = standardTemperature.toFixed(2);
 
-  console.log("Sea Level Pressure: " + seaLevelPressure);
-  console.log("Temperature Lapse Rate: " + temperatureLapseRate);
-  console.log("Altitude: " + altitude);
-  console.log("Standard Temperature: " + standardTemperature);
+  // Calculate and display pressure
+  let calculatedPressure = calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature);
+  calculatedPressureOutput.innerText = calculatedPressure.toFixed(2);
 
-  // Update displayed input values
-  seaLevelPressureValue.textContent = seaLevelPressure.toFixed(2);
-  temperatureLapseRateValue.textContent = (temperatureLapseRate * 1000).toFixed(4); // Display as K/km
-  altitudeValue.textContent = altitude.toFixed(2);
-  standardTemperatureValue.textContent = standardTemperature.toFixed(2);
-
-  // Calculate the pressure using the user's altitude input
-  const calculatedPressure = calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature);
-  calculatedPressureOutput.textContent = calculatedPressure.toFixed(2);
-
-  // Generate the pressure chart
+  // Generate chart
   generatePressureChart(seaLevelPressure, temperatureLapseRate, standardTemperature);
 }
 
-// Add event listeners to input fields
+function updateFromNumInput() {
+  // Parse input values
+  let seaLevelPressure = parseFloat(seaLevelPressureNumInput.value);
+  let temperatureLapseRate = parseFloat(temperatureLapseRateNumInput.value) / 1000; // Convert from K/km to K/m
+  let altitude = parseFloat(altitudeNumInput.value);
+  let standardTemperature = parseFloat(standardTemperatureNumInput.value);
+
+  // Update range inputs
+  seaLevelPressureInput.value = seaLevelPressure;
+  temperatureLapseRateInput.value = temperatureLapseRate;
+  altitudeInput.value = altitude;
+  standardTemperatureInput.value = standardTemperature;
+
+  // Calculate and display pressure
+  let calculatedPressure = calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature);
+  calculatedPressureOutput.innerText = calculatedPressure.toFixed(2);
+
+  // Generate chart
+  generatePressureChart(seaLevelPressure, temperatureLapseRate, standardTemperature);
+}
+
+// Event listeners for input changes
 seaLevelPressureInput.addEventListener('input', update);
 temperatureLapseRateInput.addEventListener('input', update);
 altitudeInput.addEventListener('input', update);
 standardTemperatureInput.addEventListener('input', update);
 
-// Initial call to update function
-window.onload = function() {
-  update();
-};
+seaLevelPressureNumInput.addEventListener('input', updateFromNumInput);
+temperatureLapseRateNumInput.addEventListener('input', updateFromNumInput);
+altitudeNumInput.addEventListener('input', updateFromNumInput);
+standardTemperatureNumInput.addEventListener('input', updateFromNumInput);
+
+// Initial update
+update();
