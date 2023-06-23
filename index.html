@@ -19,22 +19,31 @@
       <section class="input-section">
         <h2>Inputs</h2>
         <!-- Input fields and calculate button -->
-        <label for="sea-level-pressure">Pressure at Sea Level (hPa):</label>
-        <input type="range" id="sea-level-pressure" min="800" max="1100" step="any" value="1013.25" required>
-        <span id="sea-level-pressure-value"></span>
+        <div>
+          <label for="sea-level-pressure">Pressure at Sea Level (hPa):</label>
+          <input type="range" id="sea-level-pressure" min="800" max="1100" step="any" value="1013.25" required>
+          <input type="number" id="sea-level-pressure-number" min="800" max="1100" step="any" value="1013.25" required>
+        </div>
 
-        <label for="temperature-lapse-rate">Temperature Lapse Rate (K/m):</label>
-        <input type="range" id="temperature-lapse-rate" min="0" max="0.02" step="any" value="0.0065" required>
-        <span id="temperature-lapse-rate-value"></span>
+        <div>
+          <label for="temperature-lapse-rate">Temperature Lapse Rate (K/m):</label>
+          <input type="range" id="temperature-lapse-rate" min="0" max="0.02" step="any" value="0.0065" required>
+          <input type="number" id="temperature-lapse-rate-number" min="0" max="0.02" step="any" value="0.0065" required>
+        </div>
 
-        <label for="altitude">Altitude (km):</label>
-        <input type="range" id="altitude" min="0" max="100" step="any" value="0" required>
-        <span id="altitude-value"></span>
+        <div>
+          <label for="altitude">Altitude (km):</label>
+          <input type="range" id="altitude" min="0" max="100" step="any" value="0" required>
+          <input type="number" id="altitude-number" min="0" max="100" step="any" value="0" required>
+        </div>
 
-        <label for="standard-temperature">Standard Temperature (°C):</label>
-        <input type="range" id="standard-temperature" min="-50" max="50" step="any" value="15" required>
-        <span id="standard-temperature-value"></span>
+        <div>
+          <label for="standard-temperature">Standard Temperature (°C):</label>
+          <input type="range" id="standard-temperature" min="-50" max="50" step="any" value="15" required>
+          <input type="number" id="standard-temperature-number" min="-50" max="50" step="any" value="15" required>
+        </div>
       </section>
+
       <section class="output-section">
         <h2>Outputs</h2>
         <!-- Output label for calculated pressure -->
