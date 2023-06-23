@@ -123,6 +123,7 @@ function updateFromNumInput() {
 
   // Generate chart
   generatePressureChart(seaLevelPressure, temperatureLapseRate, standardTemperature);
+}
 
 // Event listeners for input changes
 seaLevelPressureInput.addEventListener('input', update);
