@@ -9,8 +9,11 @@ const stratosphereLapseRate = 0;  // temperature is constant in stratosphere
 
 // Variables for inputs
 let seaLevelPressureInput = document.getElementById('sea-level-pressure');
+console.log("seaLevelPressureInput: " + seaLevelPressureInput);
 let altitudeInput = document.getElementById('altitude');
+console.log("altitudeInput: " + altitudeInput);
 let standardTemperatureInput = document.getElementById('standard-temperature');
+console.log("standardTemperatureInput: " + standardTemperatureInput);
 
 // Variables for displaying input values
 let seaLevelPressureValue = document.getElementById('sea-level-pressure-value');
