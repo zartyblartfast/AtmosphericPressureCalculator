@@ -15,6 +15,9 @@ let calculatedPressureOutput = document.getElementById('calculated-pressure');
 
 // Function to calculate pressure
 function calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature) {
+  // Added console.log to debug the inputs to the calculation
+  console.log(`Calculating pressure with: seaLevelPressure=${seaLevelPressure}, temperatureLapseRate=${temperatureLapseRate}, altitude=${altitude}, standardTemperature=${standardTemperature}`);
+  
   const g = 9.80665; // gravitational acceleration
   const m = 0.0289644; // molar mass of dry air
   const R = 8.3144598; // universal gas constant
@@ -25,6 +28,10 @@ function calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, sta
   }
   const temperatureAtAltitudeK = temperatureAtAltitude + 273.15;
   const pressure = seaLevelPressure * Math.exp(-(g * m * altitude * 1000) / (R * temperatureAtAltitudeK));
+  
+  // Added console.log to debug the output of the calculation
+  console.log(`Calculated pressure: ${pressure}`);
+  
   return pressure;
 }
 
@@ -33,6 +40,8 @@ let chart;
 
 // Function to generate chart
 function generatePressureChart(seaLevelPressure, temperatureLapseRate, standardTemperature) {
+  console.log(`Generating chart with: seaLevelPressure=${seaLevelPressure}, temperatureLapseRate=${temperatureLapseRate}, standardTemperature=${standardTemperature}`);
+  
   const ctx = document.getElementById('pressure-chart').getContext('2d');
   let data = {
     labels: [],
@@ -81,6 +90,8 @@ function generatePressureChart(seaLevelPressure, temperatureLapseRate, standardT
       }
     }
   });
+  
+  console.log("Chart generated.");
 }
 
 function update() {
@@ -89,6 +100,8 @@ function update() {
   let temperatureLapseRate = parseFloat(temperatureLapseRateInput.value);
   let altitude = parseFloat(altitudeInput.value);
   let standardTemperature = parseFloat(standardTemperatureInput.value);
+
+  console.log(`Update function called with: seaLevelPressure=${seaLevelPressure}, temperatureLapseRate=${temperatureLapseRate}, altitude=${altitude}, standardTemperature=${standardTemperature}`);
 
   // Update numerical inputs
   seaLevelPressureNumInput.value = seaLevelPressure.toFixed(2);
@@ -110,6 +123,8 @@ function updateFromNumInput() {
   let temperatureLapseRate = parseFloat(temperatureLapseRateNumInput.value) / 1000; // Convert from K/km to K/m
   let altitude = parseFloat(altitudeNumInput.value);
   let standardTemperature = parseFloat(standardTemperatureNumInput.value);
+
+  console.log(`updateFromNumInput function called with: seaLevelPressure=${seaLevelPressure}, temperatureLapseRate=${temperatureLapseRate}, altitude=${altitude}, standardTemperature=${standardTemperature}`);
 
   // Update range inputs
   seaLevelPressureInput.value = seaLevelPressure;
@@ -136,5 +151,8 @@ temperatureLapseRateNumInput.addEventListener('input', updateFromNumInput);
 altitudeNumInput.addEventListener('input', updateFromNumInput);
 standardTemperatureNumInput.addEventListener('input', updateFromNumInput);
 
+console.log("Event listeners added.");
+
 // Initial update
+console.log("Initial update call.");
 update();
