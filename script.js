@@ -57,7 +57,8 @@ function generatePressureChart(seaLevelPressure, temperatureLapseRate, standardT
       tension: 0.1
     }]
   };
-  for (let i = 0; i <= 100; i += 0.1) {
+  // Change i += 0.1 to i += 1
+  for (let i = 0; i <= 100; i += 1) {
     data.labels.push(i.toFixed(1));
     
     console.log(`Chart generation: raw altitude=${i}, fixed altitude=${i.toFixed(2)}`);
