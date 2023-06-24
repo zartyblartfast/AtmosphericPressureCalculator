@@ -58,6 +58,9 @@ function generatePressureChart(seaLevelPressure, temperatureLapseRate, standardT
     let pressureAtAltitude = calculatePressure(seaLevelPressure, temperatureLapseRate, i, standardTemperature);
     data.datasets[0].data.push(pressureAtAltitude);
   }
+
+  console.log("Chart data: ", data);
+
   if (chart) {
     chart.destroy();
   }
