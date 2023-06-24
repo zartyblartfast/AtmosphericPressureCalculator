@@ -23,7 +23,6 @@ function calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, sta
   const adjustedTemperatureLapseRate = temperatureLapseRate * 1000;
   let temperatureAtAltitude = standardTemperature - (adjustedTemperatureLapseRate * altitude);
 
-  // Log temperatureAtAltitude
   console.log(`Temperature at altitude (C): ${temperatureAtAltitude}`);
   
   if (temperatureAtAltitude < -273.15) {
@@ -31,15 +30,14 @@ function calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, sta
   }
   const temperatureAtAltitudeK = temperatureAtAltitude + 273.15;
   
-  // Log temperatureAtAltitudeK
   console.log(`Temperature at altitude (K): ${temperatureAtAltitudeK}`);
 
   const pressure = seaLevelPressure * Math.exp(-(g * m * altitude * 1000) / (R * temperatureAtAltitudeK));
-  console.log(`Calculated pressure: ${pressure}`);
+  console.log(`Calculated raw pressure: ${pressure}`);
+  console.log(`Calculated fixed pressure: ${pressure.toFixed(2)}`);
   
   return pressure;
 }
-
 
 // Chart.js instance
 let chart;
@@ -62,7 +60,7 @@ function generatePressureChart(seaLevelPressure, temperatureLapseRate, standardT
   for (let i = 0; i <= 100; i += 0.1) {
     data.labels.push(i.toFixed(1));
     
-    console.log(`Chart generation: altitude=${i}, seaLevelPressure=${seaLevelPressure}, temperatureLapseRate=${temperatureLapseRate}, standardTemperature=${standardTemperature}`);
+    console.log(`Chart generation: raw altitude=${i}, fixed altitude=${i.toFixed(2)}`);
     let pressureAtAltitude = calculatePressure(seaLevelPressure, temperatureLapseRate, i, standardTemperature);
     console.log(`Chart generation: pressureAtAltitude=${pressureAtAltitude}`);
 
@@ -122,8 +120,11 @@ function update() {
   altitudeNumInput.value = altitude.toFixed(2);
   standardTemperatureNumInput.value = standardTemperature.toFixed(2);
 
+  console.log(`Update function: raw altitude=${altitude}, fixed altitude=${altitude.toFixed(2)}`);
+  
   // Calculate and display pressure
   let calculatedPressure = calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature);
+  console.log(`Update function: raw pressure=${calculatedPressure}, fixed pressure=${calculatedPressure.toFixed(2)}`);
   calculatedPressureOutput.innerText = calculatedPressure.toFixed(2);
 
   // Generate chart
