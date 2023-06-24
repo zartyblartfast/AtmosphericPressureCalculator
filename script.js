@@ -127,6 +127,10 @@ function update() {
   console.log(`Update function: raw pressure=${calculatedPressure}, fixed pressure=${calculatedPressure.toFixed(2)}`);
   calculatedPressureOutput.innerText = calculatedPressure.toFixed(2);
 
+  console.log(`Update - Parsed input values: seaLevelPressure=${seaLevelPressure}, temperatureLapseRate=${temperatureLapseRate}, altitude=${altitude}, standardTemperature=${standardTemperature}`);
+  console.log(`Update - Calculated pressure: ${calculatedPressure}`);
+  console.log(`Update - calculatedPressureOutput: ${calculatedPressureOutput.innerText}`);
+  
   // Generate chart
   generatePressureChart(seaLevelPressure, temperatureLapseRate, standardTemperature);
 }
@@ -150,6 +154,9 @@ function updateFromNumInput() {
   let calculatedPressure = calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature);
   calculatedPressureOutput.innerText = calculatedPressure.toFixed(2);
 
+  console.log(`updateFromNumInput - Parsed input values: seaLevelPressure=${seaLevelPressure}, temperatureLapseRate=${temperatureLapseRate}, altitude=${altitude}, standardTemperature=${standardTemperature}`);
+  console.log(`updateFromNumInput - Calculated pressure: ${calculatedPressure}`);
+  console.log(`updateFromNumInput - calculatedPressureOutput: ${calculatedPressureOutput.innerText}`);
   // Generate chart
   generatePressureChart(seaLevelPressure, temperatureLapseRate, standardTemperature);
 }
