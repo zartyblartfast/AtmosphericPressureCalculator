@@ -8,9 +8,9 @@ const troposphereLapseRate = -6.5;
 const stratosphereLapseRate = 0;  // temperature is constant in stratosphere
 
 // Variables for inputs
-//let seaLevelPressureInput = document.getElementById('sea-level-pressure');
-//let altitudeInput = document.getElementById('altitude');
-//let standardTemperatureInput = document.getElementById('standard-temperature');
+let seaLevelPressureInput = document.getElementById('sea-level-pressure');
+let altitudeInput = document.getElementById('altitude');
+let standardTemperatureInput = document.getElementById('standard-temperature');
 
 // Variables for displaying input values
 let seaLevelPressureValue = document.getElementById('sea-level-pressure-value');
@@ -136,9 +136,9 @@ function update() {
 }
 
 // Add event listeners to input fields
-//seaLevelPressureInput.addEventListener('input', update);
-//altitudeInput.addEventListener('input', update);
-//standardTemperatureInput.addEventListener('input', update);
+seaLevelPressureInput.addEventListener('input', update);
+altitudeInput.addEventListener('input', update);
+standardTemperatureInput.addEventListener('input', update);
 
 // Initial call to update function
 window.onload = function() {
