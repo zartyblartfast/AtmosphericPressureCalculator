@@ -141,6 +141,10 @@ altitudeInput.addEventListener('input', update);
 standardTemperatureInput.addEventListener('input', update);
 
 // Initial call to update function
-window.onload = function() {
+//window.onload = function() {
+//  update();
+//};
+document.addEventListener('DOMContentLoaded', function() {
   update();
-};
+});
+
