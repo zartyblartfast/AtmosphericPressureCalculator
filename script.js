@@ -1,45 +1,45 @@
+// Constants for atmospheric layers (in km)
+const tropopauseBoundary = 11;  // end of troposphere
+const stratopauseBoundary = 50;  // end of stratosphere
+const mesopauseBoundary = 86;  // end of mesosphere
+
+// Lapse rates (in K/km)
+const troposphereLapseRate = -6.5;
+const stratosphereLapseRate = 0;  // temperature is constant in stratosphere
+
 // Variables for inputs
 let seaLevelPressureInput = document.getElementById('sea-level-pressure');
-let temperatureLapseRateInput = document.getElementById('temperature-lapse-rate');
 let altitudeInput = document.getElementById('altitude');
 let standardTemperatureInput = document.getElementById('standard-temperature');
 
-// Variables for numerical inputs
-let seaLevelPressureNumInput = document.getElementById('sea-level-pressure-number');
-let temperatureLapseRateNumInput = document.getElementById('temperature-lapse-rate-number');
-let altitudeNumInput = document.getElementById('altitude-number');
-let standardTemperatureNumInput = document.getElementById('standard-temperature-number');
+// Variables for displaying input values
+let seaLevelPressureValue = document.getElementById('sea-level-pressure-value');
+let altitudeValue = document.getElementById('altitude-value');
+let standardTemperatureValue = document.getElementById('standard-temperature-value');
 
 // Variable for displaying calculated pressure
 let calculatedPressureOutput = document.getElementById('calculated-pressure');
 
+// Constants for pressure calculation
+const g = 9.80665; // gravitational acceleration
+const M = 0.0289644; // molar mass of dry air
+const R = 8.31432; // gas constant for dry air
+
 // Function to calculate pressure
-function calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature) {
-  console.log(`Calculating pressure with: seaLevelPressure=${seaLevelPressure}, temperatureLapseRate=${temperatureLapseRate}, altitude=${altitude}, standardTemperature=${standardTemperature}`);
-  
-  const g = 9.80665; // gravitational acceleration
-  const m = 0.0289644; // molar mass of dry air
-  const R = 8.3144598; // universal gas constant
-  const adjustedTemperatureLapseRate = temperatureLapseRate * 1000;
-  let temperatureAtAltitude = standardTemperature - (adjustedTemperatureLapseRate * altitude);
-
-  console.log(`Temperature at altitude (C): ${temperatureAtAltitude}`);
-  
-  if (temperatureAtAltitude < -273.15) {
-    temperatureAtAltitude = -273.15;
+function calculatePressure(seaLevelPressure, altitude, standardTemperature) {
+  if (altitude <= tropopauseBoundary) {
+    return calculatePressureWithLapseRate(seaLevelPressure, altitude, standardTemperature, troposphereLapseRate);
+  } else if (altitude <= stratopauseBoundary) {
+    return calculatePressureWithLapseRate(seaLevelPressure, altitude, standardTemperature, stratosphereLapseRate);
+  } else {
+    return calculatePressureWithLapseRate(seaLevelPressure, altitude, standardTemperature, stratosphereLapseRate);
   }
-  const temperatureAtAltitudeK = temperatureAtAltitude + 273.15;
-  
-  console.log(`Temperature at altitude (K): ${temperatureAtAltitudeK}`);
+}
 
-  // New logging for the pressure formula
-  const pressureFormula = -(g * m * altitude * 1000) / (R * temperatureAtAltitudeK);
-  console.log(`Pressure formula: ${pressureFormula}`);
-  
-  const pressure = seaLevelPressure * Math.exp(pressureFormula);
-  console.log(`Calculated raw pressure: ${pressure}`);
-  console.log(`Calculated fixed pressure: ${pressure.toFixed(2)}`);
-  
+function calculatePressureWithLapseRate(seaLevelPressure, altitude, standardTemperature, lapseRate) {
+  const T0_K = standardTemperature + 273.15;
+  const T = T0_K + lapseRate * altitude;
+  const pressure = seaLevelPressure * Math.pow((T / T0_K), (g * M) / (lapseRate * R));
   return pressure;
 }
 
@@ -47,36 +47,34 @@ function calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, sta
 let chart;
 
 // Function to generate chart
-function generatePressureChart(seaLevelPressure, temperatureLapseRate, standardTemperature) {
-  console.log(`Generating chart with: seaLevelPressure=${seaLevelPressure}, temperatureLapseRate=${temperatureLapseRate}, standardTemperature=${standardTemperature}`);
-  
+function generatePressureChart(seaLevelPressure, standardTemperature) {
   const ctx = document.getElementById('pressure-chart').getContext('2d');
+  
+  // Data for chart
   let data = {
-    labels: [],
+    labels: [], // This array will be populated with altitude values
     datasets: [{
       label: 'Air Pressure (hPa)',
-      data: [],
+      data: [], // This array will be populated with pressure values
       fill: false,
       borderColor: 'rgb(75, 192, 192)',
       tension: 0.1
     }]
   };
-  // Change i += 0.1 to i += 1
-  for (let i = 0; i <= 100; i += 1) {
+  
+  // Generate data
+  for (let i = 0; i <= mesopauseBoundary; i += 0.1) { // Fixed range to 86 Km
     data.labels.push(i.toFixed(1));
-    
-    console.log(`Chart generation: raw altitude=${i}, fixed altitude=${i.toFixed(2)}`);
-    let pressureAtAltitude = calculatePressure(seaLevelPressure, temperatureLapseRate, i, standardTemperature);
-    console.log(`Chart generation: pressureAtAltitude=${pressureAtAltitude}`);
-
-    data.datasets[0].data.push(pressureAtAltitude)
+    let pressureAtAltitude = calculatePressure(seaLevelPressure, i, standardTemperature);
+    data.datasets[0].data.push(pressureAtAltitude);
   }
-
-  console.log("Chart data: ", data);
-
+  
+  // If chart exists, destroy it before creating a new one
   if (chart) {
     chart.destroy();
   }
+  
+  // Create new chart
   chart = new Chart(ctx, {
     type: 'line',
     data: data,
@@ -85,14 +83,14 @@ function generatePressureChart(seaLevelPressure, temperatureLapseRate, standardT
       scales: {
         x: {
           min: 0,
-          max: 100,
+          max: mesopauseBoundary,
           title: {
             display: true,
             text: 'Altitude (km)'
           },
           ticks: {
             callback: function(value) {
-              return Number(value).toFixed(0);
+              return Number(value).toFixed(0); // Display only integer values on the x-axis
             }
           }
         },
@@ -106,79 +104,43 @@ function generatePressureChart(seaLevelPressure, temperatureLapseRate, standardT
       }
     }
   });
-  
-  console.log("Chart generated.");
 }
 
 function update() {
   // Parse input values
   let seaLevelPressure = parseFloat(seaLevelPressureInput.value);
-  let temperatureLapseRate = parseFloat(temperatureLapseRateInput.value);
   let altitude = parseFloat(altitudeInput.value);
   let standardTemperature = parseFloat(standardTemperatureInput.value);
 
-  console.log(`Update function called with: seaLevelPressure=${seaLevelPressure}, temperatureLapseRate=${temperatureLapseRate}, altitude=${altitude}, standardTemperature=${standardTemperature}`);
+  // Basic input validation
+  if (isNaN(seaLevelPressure) || isNaN(altitude) || isNaN(standardTemperature)) {
+    calculatedPressureOutput.textContent = "Invalid input";
+    return;
+  }
 
-  // Update numerical inputs
-  seaLevelPressureNumInput.value = seaLevelPressure.toFixed(2);
-  temperatureLapseRateNumInput.value = (temperatureLapseRate * 1000).toFixed(4); // Display as K/km
-  altitudeNumInput.value = altitude.toFixed(2);
-  standardTemperatureNumInput.value = standardTemperature.toFixed(2);
+  console.log("Sea Level Pressure: " + seaLevelPressure);
+  console.log("Altitude: " + altitude);
+  console.log("Standard Temperature: " + standardTemperature);
 
-  console.log(`Update function: raw altitude=${altitude}, fixed altitude=${altitude.toFixed(2)}`);
-  
-  // Calculate and display pressure
-  let calculatedPressure = calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature);
-  console.log(`Update function: raw pressure=${calculatedPressure}, fixed pressure=${calculatedPressure.toFixed(2)}`);
-  calculatedPressureOutput.innerText = calculatedPressure.toFixed(2);
+  // Update displayed input values
+  seaLevelPressureValue.textContent = seaLevelPressure.toFixed(2);
+  altitudeValue.textContent = altitude.toFixed(2);
+  standardTemperatureValue.textContent = standardTemperature.toFixed(2);
 
-  console.log(`Update - Parsed input values: seaLevelPressure=${seaLevelPressure}, temperatureLapseRate=${temperatureLapseRate}, altitude=${altitude}, standardTemperature=${standardTemperature}`);
-  console.log(`Update - Calculated pressure: ${calculatedPressure}`);
-  console.log(`Update - calculatedPressureOutput: ${calculatedPressureOutput.innerText}`);
-  
-  // Generate chart
-  generatePressureChart(seaLevelPressure, temperatureLapseRate, standardTemperature);
+  // Calculate the pressure using the user's altitude input
+  const calculatedPressure = calculatePressure(seaLevelPressure, altitude, standardTemperature);
+  calculatedPressureOutput.textContent = calculatedPressure.toFixed(2);
+
+  // Generate the pressure chart
+  generatePressureChart(seaLevelPressure, standardTemperature);
 }
 
-function updateFromNumInput() {
-  // Parse input values
-  let seaLevelPressure = parseFloat(seaLevelPressureNumInput.value);
-  let temperatureLapseRate = parseFloat(temperatureLapseRateNumInput.value) / 1000; // Convert from K/km to K/m
-  let altitude = parseFloat(altitudeNumInput.value);
-  let standardTemperature = parseFloat(standardTemperatureNumInput.value);
-
-  console.log(`updateFromNumInput function called with: seaLevelPressure=${seaLevelPressure}, temperatureLapseRate=${temperatureLapseRate}, altitude=${altitude}, standardTemperature=${standardTemperature}`);
-
-  // Update range inputs
-  seaLevelPressureInput.value = seaLevelPressure;
-  temperatureLapseRateInput.value = temperatureLapseRate;
-  altitudeInput.value = altitude;
-  standardTemperatureInput.value = standardTemperature;
-
-  // Calculate and display pressure
-  let calculatedPressure = calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature);
-  calculatedPressureOutput.innerText = calculatedPressure.toFixed(2);
-
-  console.log(`updateFromNumInput - Parsed input values: seaLevelPressure=${seaLevelPressure}, temperatureLapseRate=${temperatureLapseRate}, altitude=${altitude}, standardTemperature=${standardTemperature}`);
-  console.log(`updateFromNumInput - Calculated pressure: ${calculatedPressure}`);
-  console.log(`updateFromNumInput - calculatedPressureOutput: ${calculatedPressureOutput.innerText}`);
-  // Generate chart
-  generatePressureChart(seaLevelPressure, temperatureLapseRate, standardTemperature);
-}
-
-// Event listeners for input changes
+// Add event listeners to input fields
 seaLevelPressureInput.addEventListener('input', update);
-temperatureLapseRateInput.addEventListener('input', update);
 altitudeInput.addEventListener('input', update);
 standardTemperatureInput.addEventListener('input', update);
 
-seaLevelPressureNumInput.addEventListener('input', updateFromNumInput);
-temperatureLapseRateNumInput.addEventListener('input', updateFromNumInput);
-altitudeNumInput.addEventListener('input', updateFromNumInput);
-standardTemperatureNumInput.addEventListener('input', updateFromNumInput);
-
-console.log("Event listeners added.");
-
-// Initial update
-console.log("Initial update call.");
-update();
+// Initial call to update function
+window.onload = function() {
+  update();
+};
