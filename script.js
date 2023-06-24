@@ -32,7 +32,11 @@ function calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, sta
   
   console.log(`Temperature at altitude (K): ${temperatureAtAltitudeK}`);
 
-  const pressure = seaLevelPressure * Math.exp(-(g * m * altitude * 1000) / (R * temperatureAtAltitudeK));
+  // New logging for the pressure formula
+  const pressureFormula = -(g * m * altitude * 1000) / (R * temperatureAtAltitudeK);
+  console.log(`Pressure formula: ${pressureFormula}`);
+  
+  const pressure = seaLevelPressure * Math.exp(pressureFormula);
   console.log(`Calculated raw pressure: ${pressure}`);
   console.log(`Calculated fixed pressure: ${pressure.toFixed(2)}`);
   
