@@ -15,7 +15,6 @@ let calculatedPressureOutput = document.getElementById('calculated-pressure');
 
 // Function to calculate pressure
 function calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature) {
-  // Added console.log to debug the inputs to the calculation
   console.log(`Calculating pressure with: seaLevelPressure=${seaLevelPressure}, temperatureLapseRate=${temperatureLapseRate}, altitude=${altitude}, standardTemperature=${standardTemperature}`);
   
   const g = 9.80665; // gravitational acceleration
@@ -23,17 +22,24 @@ function calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, sta
   const R = 8.3144598; // universal gas constant
   const adjustedTemperatureLapseRate = temperatureLapseRate * 1000;
   let temperatureAtAltitude = standardTemperature - (adjustedTemperatureLapseRate * altitude);
+
+  // Log temperatureAtAltitude
+  console.log(`Temperature at altitude (C): ${temperatureAtAltitude}`);
+  
   if (temperatureAtAltitude < -273.15) {
     temperatureAtAltitude = -273.15;
   }
   const temperatureAtAltitudeK = temperatureAtAltitude + 273.15;
-  const pressure = seaLevelPressure * Math.exp(-(g * m * altitude * 1000) / (R * temperatureAtAltitudeK));
   
-  // Added console.log to debug the output of the calculation
+  // Log temperatureAtAltitudeK
+  console.log(`Temperature at altitude (K): ${temperatureAtAltitudeK}`);
+
+  const pressure = seaLevelPressure * Math.exp(-(g * m * altitude * 1000) / (R * temperatureAtAltitudeK));
   console.log(`Calculated pressure: ${pressure}`);
   
   return pressure;
 }
+
 
 // Chart.js instance
 let chart;
