@@ -126,8 +126,8 @@ function update() {
   console.log("Update - Standard Temperature: " + standardTemperature);
 
   // Update displayed input values
-  console.log("Update - again - seaLevelPressureValue" + seaLevelPressureValue);
-  console.log("Update - again - seaLevelPressureValue.toFixed(2)" + seaLevelPressure.toFixed(2));
+  console.log("Update - again - seaLevelPressureValue: " + seaLevelPressureValue);
+  console.log("Update - again - seaLevelPressureValue.toFixed(2): " + seaLevelPressure.toFixed(2));
   seaLevelPressureValue.textContent = seaLevelPressure.toFixed(2);
   altitudeValue.textContent = altitude.toFixed(2);
   standardTemperatureValue.textContent = standardTemperature.toFixed(2);
