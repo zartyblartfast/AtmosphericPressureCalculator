@@ -1,4 +1,3 @@
-// Admospheric Pressure Calculator
 // Variables for inputs
 let seaLevelPressureInput = document.getElementById('sea-level-pressure');
 let temperatureLapseRateInput = document.getElementById('temperature-lapse-rate');
