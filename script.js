@@ -27,28 +27,25 @@ const R = 8.31432; // gas constant for dry air
 
 // Function to calculate pressure
 function calculatePressure(seaLevelPressure, altitude, standardTemperature) {
-  const T0_K = standardTemperature + 273.15;
+  const T0_K = standardTemperature + 273.15; // convert to Kelvin
   let T;
 
+  // If we're in the troposphere
   if (altitude <= tropopauseBoundary) {
     T = T0_K + troposphereLapseRate * altitude;
-  } else {
+    const pressure = seaLevelPressure * Math.pow((T / T0_K), (-g * M) / (R * troposphereLapseRate));
+    return pressure;
+  } 
+  else {
     // Temperature at the tropopause boundary
     const Tb = T0_K + troposphereLapseRate * tropopauseBoundary;
+    const pressureAtTropopause = seaLevelPressure * Math.pow((Tb / T0_K), (-g * M) / (R * troposphereLapseRate));
 
-    // Assume that temperature is constant above the tropopause
-    T = Tb;
+    // For altitude above the tropopause, we calculate pressure assuming the temperature remains constant.
+    // This formula corresponds to the barometric formula in isothermal layer.
+    const pressure = pressureAtTropopause * Math.exp(-g * M * (altitude - tropopauseBoundary) / (R * Tb));
+    return pressure;
   }
-
-  const pressure = seaLevelPressure * Math.pow((T / T0_K), (-g * M) / (R * troposphereLapseRate));
-  return pressure;
-}
-
-function calculatePressureWithLapseRate(seaLevelPressure, altitude, standardTemperature, lapseRate) {
-  const T0_K = standardTemperature + 273.15;
-  const T = T0_K + lapseRate * altitude;
-  const pressure = seaLevelPressure * Math.pow((T / T0_K), (g * M) / (lapseRate * R));
-  return pressure;
 }
 
 // Chart.js instance
