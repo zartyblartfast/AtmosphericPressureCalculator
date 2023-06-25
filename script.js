@@ -4,7 +4,7 @@ const stratopauseBoundary = 50;  // end of stratosphere
 const mesopauseBoundary = 86;  // end of mesosphere
 
 // Lapse rates (in K/km)
-const troposphereLapseRate = -6.5;
+const troposphereLapseRate = 6.5;
 const stratosphereLapseRate = 0;  // temperature is constant in stratosphere
 
 // Variables for inputs
@@ -32,7 +32,8 @@ function calculatePressure(seaLevelPressure, altitude, standardTemperature) {
 
   // If we're in the troposphere
   if (altitude <= tropopauseBoundary) {
-    T = T0_K + troposphereLapseRate * altitude;
+    //T = T0_K + troposphereLapseRate * altitude;
+    T = T0_K - troposphereLapseRate * altitude;
     const pressure = seaLevelPressure * Math.pow((T0_K / T), (g * M) / (R * Math.abs(troposphereLapseRate)));
     console.log(`Troposphere - Altitude: ${altitude}, Temp: ${T}, Pressure: ${pressure}`);
     return pressure / 100;  // Convert Pa to hPa
