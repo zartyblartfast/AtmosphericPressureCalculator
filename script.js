@@ -27,13 +27,21 @@ const R = 8.31432; // gas constant for dry air
 
 // Function to calculate pressure
 function calculatePressure(seaLevelPressure, altitude, standardTemperature) {
+  const T0_K = standardTemperature + 273.15;
+  let T;
+
   if (altitude <= tropopauseBoundary) {
-    return calculatePressureWithLapseRate(seaLevelPressure, altitude, standardTemperature, troposphereLapseRate);
-  } else if (altitude <= stratopauseBoundary) {
-    return calculatePressureWithLapseRate(seaLevelPressure, altitude, standardTemperature, stratosphereLapseRate);
+    T = T0_K + troposphereLapseRate * altitude;
   } else {
-    return calculatePressureWithLapseRate(seaLevelPressure, altitude, standardTemperature, stratosphereLapseRate);
+    // Temperature at the tropopause boundary
+    const Tb = T0_K + troposphereLapseRate * tropopauseBoundary;
+
+    // Assume that temperature is constant above the tropopause
+    T = Tb;
   }
+
+  const pressure = seaLevelPressure * Math.pow((T / T0_K), (-g * M) / (R * troposphereLapseRate));
+  return pressure;
 }
 
 function calculatePressureWithLapseRate(seaLevelPressure, altitude, standardTemperature, lapseRate) {
