@@ -166,7 +166,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // Add event listeners to input fields
 seaLevelPressureInput.addEventListener('input', update);
-temperatureLapseRateInput.addEventListener('input', update);
 altitudeInput.addEventListener('input', update);
 standardTemperatureInput.addEventListener('input', update);
 
