@@ -33,18 +33,15 @@ function calculatePressure(seaLevelPressure, altitude, standardTemperature) {
 
   // If we're in the troposphere
   if (altitude <= tropopauseBoundary) {
-    //T = T0_K + troposphereLapseRate * altitude;
     T = T0_K - troposphereLapseRate * altitude;
-    //const pressure = seaLevelPressure * Math.pow((T0_K / T), (g * M) / (R * Math.abs(troposphereLapseRate)));
-    const pressure = seaLevelPressure * Math.pow((1 - (troposphereLapseRate * altitude) / T0_K), (g * M) / (R * troposphereLapseRate));
-
+    const pressure = (seaLevelPressure * 100) * Math.pow((T0_K / T), (g * M) / (R * Math.abs(troposphereLapseRate)));
     console.log(`Troposphere - Altitude: ${altitude}, Temp: ${T}, Pressure: ${pressure}`);
     return pressure / 100;  // Convert Pa to hPa
   } 
   else {
     // Temperature at the tropopause boundary
     const Tb = T0_K + troposphereLapseRate * tropopauseBoundary;
-    const pressureAtTropopause = seaLevelPressure * Math.pow((Tb / T0_K), (g * M) / (R * Math.abs(troposphereLapseRate)));
+    const pressureAtTropopause = (seaLevelPressure * 100) * Math.pow((Tb / T0_K), (g * M) / (R * Math.abs(troposphereLapseRate)));
 
     // For altitude above the tropopause, we calculate pressure assuming the temperature remains constant.
     // This formula corresponds to the barometric formula in isothermal layer.
