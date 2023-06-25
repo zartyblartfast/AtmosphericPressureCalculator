@@ -73,6 +73,8 @@ function generatePressureChart(seaLevelPressure, temperatureLapseRate, standardT
   if (chart) {
     chart.destroy();
   }
+
+  console.log(data)
   
   // Create new chart
   chart = new Chart(ctx, {
