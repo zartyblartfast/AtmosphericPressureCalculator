@@ -34,6 +34,7 @@ function calculatePressure(seaLevelPressure, altitude, standardTemperature) {
   if (altitude <= tropopauseBoundary) {
     T = T0_K + troposphereLapseRate * altitude;
     const pressure = seaLevelPressure * Math.pow((T / T0_K), (-g * M) / (R * troposphereLapseRate));
+    console.log(`Troposphere - Altitude: ${altitude}, Temp: ${T}, Pressure: ${pressure}`);
     return pressure;
   } 
   else {
@@ -44,12 +45,14 @@ function calculatePressure(seaLevelPressure, altitude, standardTemperature) {
     // For altitude above the tropopause, we calculate pressure assuming the temperature remains constant.
     // This formula corresponds to the barometric formula in isothermal layer.
     const pressure = pressureAtTropopause * Math.exp(-g * M * (altitude - tropopauseBoundary) / (R * Tb));
+    console.log(`Above Troposphere - Altitude: ${altitude}, Temp: ${Tb}, Pressure: ${pressure}`);
     return pressure;
   }
 }
 
 // Chart.js instance
 let chart;
+
 
 // Function to generate chart
 function generatePressureChart(seaLevelPressure, standardTemperature) {
@@ -72,6 +75,7 @@ function generatePressureChart(seaLevelPressure, standardTemperature) {
     data.labels.push(i.toFixed(1));
     let pressureAtAltitude = calculatePressure(seaLevelPressure, i, standardTemperature);
     data.datasets[0].data.push(pressureAtAltitude);
+    console.log(`Generated Data - Altitude: ${i}, Pressure: ${pressureAtAltitude}`);
   }
   
   // If chart exists, destroy it before creating a new one
