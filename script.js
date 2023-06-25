@@ -1,3 +1,4 @@
+// AtomosphericPressureCalculator
 // Constants for atmospheric layers (in km)
 const tropopauseBoundary = 11;  // end of troposphere
 const stratopauseBoundary = 50;  // end of stratosphere
