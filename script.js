@@ -16,9 +16,9 @@ let standardTemperatureInput = document.getElementById('standard-temperature');
 console.log("standardTemperatureInput: " + standardTemperatureInput);
 
 // Variables for displaying input values
-let seaLevelPressureValue = document.getElementById('sea-level-pressure-value');
-let altitudeValue = document.getElementById('altitude-value');
-let standardTemperatureValue = document.getElementById('standard-temperature-value');
+let seaLevelPressureValue = document.getElementById('sea-level-pressure-number');
+let altitudeValue = document.getElementById('altitude-number');
+let standardTemperatureValue = document.getElementById('standard-temperature-number');
 
 // Variable for displaying calculated pressure
 let calculatedPressureOutput = document.getElementById('calculated-pressure');
@@ -121,25 +121,15 @@ function update() {
     return;
   }
 
-  console.log("Update - Sea Level Pressure: " + seaLevelPressure);
-  console.log("Update - Altitude: " + altitude);
-  console.log("Update - Standard Temperature: " + standardTemperature);
-
   // Update displayed input values
-
-  // next line is a valid value
-  console.log("Update - again - seaLevelPressureValue: " + seaLevelPressureValue);
-  // next line using .toFixed(2) is null
-  console.log("Update - again - seaLevelPressureValue.toFixed(2): " + seaLevelPressure.toFixed(2));
-  
-  seaLevelPressureValue.textContent = seaLevelPressure.toFixed(2);
-  altitudeValue.textContent = altitude.toFixed(2);
-  standardTemperatureValue.textContent = standardTemperature.toFixed(2);
+  seaLevelPressureValue.value = seaLevelPressure.toFixed(2);
+  altitudeValue.value = altitude.toFixed(2);
+  standardTemperatureValue.value = standardTemperature.toFixed(2);
 
   // Calculate the pressure using the user's altitude input
   const calculatedPressure = calculatePressure(seaLevelPressure, altitude, standardTemperature);
   calculatedPressureOutput.textContent = calculatedPressure.toFixed(2);
-// revert this if necessary but doesn't display the chart
+
   // Generate the pressure chart
   generatePressureChart(seaLevelPressure, standardTemperature);
 }
