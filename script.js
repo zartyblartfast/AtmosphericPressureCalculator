@@ -59,7 +59,7 @@ function generatePressureChart(seaLevelPressure, temperatureLapseRate, standardT
   };
   
   // Generate data
-  for (let i = 0; i <= 50; i += 1) { // Fixed range to 100 Km
+  for (let i = 0; i <= 50; i += 0.1) { // Fixed range to 100 Km
     data.labels.push(i.toFixed(1));
     let pressureAtAltitude = calculatePressure(seaLevelPressure, temperatureLapseRate, i, standardTemperature);
     
