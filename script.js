@@ -66,7 +66,10 @@ function generatePressureChart(seaLevelPressure, temperatureLapseRate, standardT
     
     data.datasets[0].data.push(pressureAtAltitude);
   }
-  
+
+  // Log the altitude and corresponding pressure
+  console.log(`Altitude: ${i.toFixed(1)}, Pressure: ${pressureAtAltitude}`);
+ 
   // If chart exists, destroy it before creating a new one
   if (chart) {
     chart.destroy();
