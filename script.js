@@ -25,6 +25,7 @@ const g = 9.80665; // gravitational acceleration
 const M = 0.0289644; // molar mass of dry air
 const R = 8.31432; // gas constant for dry air
 
+// calculatePressure function
 function calculatePressure(seaLevelPressure, altitude, standardTemperature) {
   const T0_K = standardTemperature + 273.15; // convert to Kelvin
   let T;
@@ -32,7 +33,6 @@ function calculatePressure(seaLevelPressure, altitude, standardTemperature) {
   // If we're in the troposphere
   if (altitude <= tropopauseBoundary) {
     T = T0_K + troposphereLapseRate * altitude;
-    //const pressure = seaLevelPressure * Math.pow((T / T0_K), (g * M) / (R * Math.abs(troposphereLapseRate)));
     const pressure = seaLevelPressure * Math.pow((T0_K / T), (g * M) / (R * Math.abs(troposphereLapseRate)));
     console.log(`Troposphere - Altitude: ${altitude}, Temp: ${T}, Pressure: ${pressure}`);
     return pressure / 100;  // Convert Pa to hPa
@@ -49,6 +49,7 @@ function calculatePressure(seaLevelPressure, altitude, standardTemperature) {
     return pressure / 100;  // Convert Pa to hPa
   }
 }
+
 
 // Chart.js instance
 let chart;
