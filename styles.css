@@ -30,7 +30,7 @@ main {
 .input-section label {
   display: flex;
   align-items: center;
-  width: 100%;
+  width: 50%;
   margin-top: 10px;
 }
 
