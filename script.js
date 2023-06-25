@@ -75,7 +75,7 @@ function generatePressureChart(seaLevelPressure, standardTemperature) {
   };
   
   // Generate data
-  for (let i = 0; i <= mesopauseBoundary; i += 1) { // Changed the increment to 1 Km
+  for (let i = 0; i <= mesopauseBoundary; i += 1) { 
     data.labels.push(i.toFixed(1));
     let pressureAtAltitude = calculatePressure(seaLevelPressure, i, standardTemperature);
     data.datasets[0].data.push(pressureAtAltitude);
