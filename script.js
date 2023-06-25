@@ -1,12 +1,15 @@
+// Constants for temperature lapse rates
+const TROPOSPHERE_LAPSE_RATE = -6.5; // in °C/km
+const STRATOSPHERE_LAPSE_RATE = 1; // in °C/km
+const MESOSPHERE_LAPSE_RATE = -2; // in °C/km
+
 // Variables for inputs
 let seaLevelPressureInput = document.getElementById('sea-level-pressure');
-let temperatureLapseRateInput = document.getElementById('temperature-lapse-rate');
 let altitudeInput = document.getElementById('altitude');
 let standardTemperatureInput = document.getElementById('standard-temperature');
 
 // Variables for displaying input values
 let seaLevelPressureValue = document.getElementById('sea-level-pressure-number');
-let temperatureLapseRateValue = document.getElementById('temperature-lapse-rate-number');
 let altitudeValue = document.getElementById('altitude-number');
 let standardTemperatureValue = document.getElementById('standard-temperature-number');
 
@@ -14,16 +17,28 @@ let standardTemperatureValue = document.getElementById('standard-temperature-num
 let calculatedPressureOutput = document.getElementById('calculated-pressure');
 
 // Function to calculate pressure
-function calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature) {
+function calculatePressure(seaLevelPressure, altitude, standardTemperature) {
   const g = 9.80665; // gravitational acceleration
   const m = 0.0289644; // molar mass of dry air
   const R = 8.3144598; // universal gas constant
 
-  // Adjust temperature lapse rate from K/m to K/km
-  const adjustedTemperatureLapseRate = temperatureLapseRate * 1000;
+  let temperatureLapseRate;
+  if (altitude <= 11) {
+    temperatureLapseRate = TROPOSPHERE_LAPSE_RATE;
+  } else if (altitude <= 20) {
+    temperatureLapseRate = 0;
+  } else if (altitude <= 32) {
+    temperatureLapseRate = STRATOSPHERE_LAPSE_RATE;
+  } else if (altitude <= 47) {
+    temperatureLapseRate = 0;
+  } else if (altitude <= 85) {
+    temperatureLapseRate = MESOSPHERE_LAPSE_RATE;
+  } else {
+    temperatureLapseRate = 0;
+  }
 
   // Calculate the temperature at the given altitude
-  let temperatureAtAltitude = standardTemperature - (adjustedTemperatureLapseRate * altitude);
+  let temperatureAtAltitude = standardTemperature - (temperatureLapseRate * altitude);
 
   // Ensure temperature doesn't go below absolute zero
   if (temperatureAtAltitude < -273.15) {
@@ -111,33 +126,30 @@ function generatePressureChart(seaLevelPressure, temperatureLapseRate, standardT
 function update() {
   // Parse input values
   let seaLevelPressure = parseFloat(seaLevelPressureInput.value);
-  let temperatureLapseRate = parseFloat(temperatureLapseRateInput.value);
   let altitude = parseFloat(altitudeInput.value);
   let standardTemperature = parseFloat(standardTemperatureInput.value);
 
   // Basic input validation
-  if (isNaN(seaLevelPressure) || isNaN(temperatureLapseRate) || isNaN(altitude) || isNaN(standardTemperature)) {
+  if (isNaN(seaLevelPressure) || isNaN(altitude) || isNaN(standardTemperature)) {
     calculatedPressureOutput.textContent = "Invalid input";
     return;
   }
 
   console.log("Sea Level Pressure: " + seaLevelPressure);
-  console.log("Temperature Lapse Rate: " + temperatureLapseRate);
   console.log("Altitude: " + altitude);
   console.log("Standard Temperature: " + standardTemperature);
 
   // Update displayed input values
   seaLevelPressureValue.value = seaLevelPressure.toFixed(2);
-  temperatureLapseRateValue.value = (temperatureLapseRate * 1000).toFixed(4); // Display as K/km
   altitudeValue.value = altitude.toFixed(2);
   standardTemperatureValue.value = standardTemperature.toFixed(2);
 
   // Calculate the pressure using the user's altitude input
-  const calculatedPressure = calculatePressure(seaLevelPressure, temperatureLapseRate, altitude, standardTemperature);
+  const calculatedPressure = calculatePressure(seaLevelPressure, altitude, standardTemperature);
   calculatedPressureOutput.textContent = calculatedPressure.toFixed(2);
 
   // Generate the pressure chart
-  generatePressureChart(seaLevelPressure, temperatureLapseRate, standardTemperature);
+  generatePressureChart(seaLevelPressure, standardTemperature);
 }
 
 // Add event listeners to input fields
