@@ -34,7 +34,9 @@ function calculatePressure(seaLevelPressure, altitude, standardTemperature) {
   if (altitude <= tropopauseBoundary) {
     //T = T0_K + troposphereLapseRate * altitude;
     T = T0_K - troposphereLapseRate * altitude;
-    const pressure = seaLevelPressure * Math.pow((T0_K / T), (g * M) / (R * Math.abs(troposphereLapseRate)));
+    //const pressure = seaLevelPressure * Math.pow((T0_K / T), (g * M) / (R * Math.abs(troposphereLapseRate)));
+    const pressure = seaLevelPressure * Math.pow((1 - (troposphereLapseRate * altitude) / T0_K), (g * M) / (R * troposphereLapseRate));
+
     console.log(`Troposphere - Altitude: ${altitude}, Temp: ${T}, Pressure: ${pressure}`);
     return pressure / 100;  // Convert Pa to hPa
   } 
