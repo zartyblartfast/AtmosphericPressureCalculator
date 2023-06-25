@@ -121,6 +121,8 @@ function update() {
   let altitude = parseFloat(altitudeInput.value);
   let standardTemperature = parseFloat(standardTemperatureInput.value);
 
+  console.log(`Inputs - Sea level pressure: ${seaLevelPressure}, Altitude: ${altitude}, Standard temperature: ${standardTemperature}`);
+
   // Basic input validation
   if (isNaN(seaLevelPressure) || isNaN(altitude) || isNaN(standardTemperature)) {
     calculatedPressureOutput.textContent = "Invalid input";
