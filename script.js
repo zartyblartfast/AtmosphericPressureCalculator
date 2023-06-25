@@ -9,11 +9,8 @@ const stratosphereLapseRate = 0;  // temperature is constant in stratosphere
 
 // Variables for inputs
 let seaLevelPressureInput = document.getElementById('sea-level-pressure');
-console.log("seaLevelPressureInput: " + seaLevelPressureInput);
 let altitudeInput = document.getElementById('altitude');
-console.log("altitudeInput: " + altitudeInput);
 let standardTemperatureInput = document.getElementById('standard-temperature');
-console.log("standardTemperatureInput: " + standardTemperatureInput);
 
 // Variables for displaying input values
 let seaLevelPressureValue = document.getElementById('sea-level-pressure-number');
@@ -135,14 +132,34 @@ function update() {
 }
 
 // Add event listeners to input fields
-seaLevelPressureInput.addEventListener('input', update);
-altitudeInput.addEventListener('input', update);
-standardTemperatureInput.addEventListener('input', update);
+seaLevelPressureInput.addEventListener('input', function() {
+  seaLevelPressureValue.value = seaLevelPressureInput.value;
+  update();
+});
+altitudeInput.addEventListener('input', function() {
+  altitudeValue.value = altitudeInput.value;
+  update();
+});
+standardTemperatureInput.addEventListener('input', function() {
+  standardTemperatureValue.value = standardTemperatureInput.value;
+  update();
+});
+
+// Add event listeners to input number fields
+seaLevelPressureValue.addEventListener('input', function() {
+  seaLevelPressureInput.value = seaLevelPressureValue.value;
+  update();
+});
+altitudeValue.addEventListener('input', function() {
+  altitudeInput.value = altitudeValue.value;
+  update();
+});
+standardTemperatureValue.addEventListener('input', function() {
+  standardTemperatureInput.value = standardTemperatureValue.value;
+  update();
+});
 
 // Initial call to update function
-//window.onload = function() {
-//  update();
-//};
 document.addEventListener('DOMContentLoaded', function() {
   update();
 });
