@@ -14,6 +14,7 @@ main {
   display: flex;
   padding: 2px;
   align-items: flex-start;
+  justify-content: center; /* Add this line */
 }
 
 .input-output-container {
@@ -21,7 +22,6 @@ main {
   flex-direction: column;
   align-items: flex-start;
   margin-right: 20px;
-  margin-left: 20px; /* Add this line */
 }
 
 .input-section, .output-section {
@@ -56,4 +56,7 @@ main {
 
 .visualization-section {
   display: flex;
-  flex-direction:
+  flex-direction: column;
+  align-items: flex-start;
+  flex-grow: 1;
+}
