@@ -58,10 +58,15 @@ function calculatePressure(seaLevelPressure, altitude, standardTemperature) {
 // Chart.js instance
 let chart;
 
-// Function to generate chart
 function generatePressureChart(seaLevelPressure, standardTemperature) {
   const ctx = document.getElementById('pressure-chart').getContext('2d');
-  
+
+  // Constants for the atmospheric layers in km
+  const TROPOSPHERE = 11;
+  const STRATOSPHERE = 32;
+  const MESOSPHERE = 47;
+  const THERMOSPHERE = 85;
+
   // Data for chart
   let data = {
     labels: [], // This array will be populated with altitude values
@@ -73,25 +78,52 @@ function generatePressureChart(seaLevelPressure, standardTemperature) {
       tension: 0.1
     }]
   };
-  
+
   // Generate data
   for (let i = 0; i <= 100; i += 1) { // Fixed range to 100 Km
     data.labels.push(i.toFixed(1));
     let pressureAtAltitude = calculatePressure(seaLevelPressure, i, standardTemperature);
-    
+
     data.datasets[0].data.push(pressureAtAltitude);
 
     // Log the altitude and corresponding pressure
     console.log(`Altitude: ${i.toFixed(1)}, Pressure: ${pressureAtAltitude}`);
   }
-  
+
   // If chart exists, destroy it before creating a new one
   if (chart) {
     chart.destroy();
   }
 
   console.log(data)
-  
+
+  // Chart.js plugin for drawing rectangles
+  const drawRectanglesPlugin = {
+    id: 'drawRectangles',
+    beforeDraw(chart, args, options) {
+      const {ctx, scales} = chart;
+      const {x, y} = scales;
+      const xMax = x.max;
+
+      // Function to draw a rectangle with a specified color
+      function drawRectangle(start, end, color) {
+        const xStart = x.getPixelForValue(start);
+        const xEnd = x.getPixelForValue(end);
+        const yTop = y.getPixelForValue(y.max);
+        const yBottom = y.getPixelForValue(y.min);
+
+        ctx.fillStyle = color;
+        ctx.fillRect(xStart, yTop, xEnd - xStart, yBottom - yTop);
+      }
+
+      // Draw rectangles for the atmospheric layers
+      drawRectangle(0, TROPOSPHERE, 'rgba(0, 0, 255, 0.1)'); // Troposphere
+      drawRectangle(TROPOSPHERE, STRATOSPHERE, 'rgba(0, 255, 0, 0.1)'); // Stratosphere
+      drawRectangle(STRATOSPHERE, MESOSPHERE, 'rgba(255, 255, 0, 0.1)'); // Mesosphere
+      drawRectangle(MESOSPHERE, THERMOSPHERE, 'rgba(255, 0, 0, 0.1)'); // Thermosphere
+    }
+  };
+
   // Create new chart
   chart = new Chart(ctx, {
     type: 'line',
@@ -119,8 +151,12 @@ function generatePressureChart(seaLevelPressure, standardTemperature) {
           },
           beginAtZero: true
         }
+      },
+      plugins: {
+        drawRectangles: {} // Enable the drawRectangles plugin
       }
-    }
+    },
+    plugins: [drawRectanglesPlugin]
   });
 }
 
