@@ -153,16 +153,7 @@ function generatePressureChart(seaLevelPressure, standardTemperature) {
         const xStart = x.getPixelForValue(start);
         const yTop = y.getPixelForValue(y.max);
         const yBottom = y.getPixelForValue(y.min);
-  
-        // Draw the line
-        //ctx.save();
-        //ctx.beginPath();
-        //ctx.moveTo(xStart, yTop);
-        //ctx.lineTo(xStart, yBottom);
-        //ctx.strokeStyle = 'rgba(0, 0, 0, 0.6)'; // Grey color
-        //ctx.setLineDash([5, 15]); // Set the line to be dashed
-        //ctx.stroke();
-        //ctx.restore();
+      
         if(start !== 0) {
           // Draw the line
           ctx.save();
@@ -173,7 +164,22 @@ function generatePressureChart(seaLevelPressure, standardTemperature) {
           ctx.setLineDash([5, 15]); // Set the line to be dashed
           ctx.stroke();
           ctx.restore();
-  }
+        }
+      
+        // Draw the label
+        ctx.save();
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.8)'; // Darker grey color
+        ctx.font = '10px Arial'; // Smaller font size
+        const text = 'T-Lapse-Rate: ' + lapseRate + ' C';
+        const textWidth = ctx.measureText(text).width;
+        const textX = xStart + 10; // Shift the text rightwards
+        const textY = yBottom - 20; // Shift the text closer to the x-axis
+        ctx.translate(textX, textY);
+        ctx.rotate(-Math.PI / 2); // Rotate the canvas
+        ctx.fillText(text, -textWidth / 2, 0);
+        ctx.restore();
+      }
+
         // Draw the label
         ctx.save();
         ctx.fillStyle = 'rgba(0, 0, 0, 0.8)'; // Darker grey color
@@ -181,7 +187,8 @@ function generatePressureChart(seaLevelPressure, standardTemperature) {
         const text = 'T-Lapse-Rate: ' + lapseRate + ' C';
         const textWidth = ctx.measureText(text).width;
         const textX = xStart + 10; // Shift the text rightwards
-        const textY = yTop + 20; // Shift the text downwards
+        //const textY = yTop + 20; // Shift the text downwards
+        const textY = yBottom - 20; // Shift the text upwards from the bottom
         ctx.fillText(text, textX, textY);
         ctx.restore();
       }
