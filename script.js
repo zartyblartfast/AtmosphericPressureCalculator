@@ -129,10 +129,10 @@ const drawRectanglesPlugin = {
     }
 
     // Draw rectangles for the atmospheric layers
-    drawRectangle(0, TROPOSPHERE, 'rgba(135, 206, 235, 0.3)', 'troposphere'); // Troposphere
-    drawRectangle(TROPOSPHERE, STRATOSPHERE, 'rgba(75, 0, 130, 0.3)', 'stratosphere'); // Stratosphere
-    drawRectangle(STRATOSPHERE, MESOSPHERE, 'rgba(255, 0, 0, 0.3)', 'mesosphere'); // Mesosphere
-    drawRectangle(MESOSPHERE, THERMOSPHERE, 'rgba(255, 165, 0, 0.3)', 'thermosphere'); // Thermosphere
+    drawRectangle(0, TROPOSPHERE, 'rgba(135, 206, 235, 0.3)', 'Troposphere'); // Troposphere
+    drawRectangle(TROPOSPHERE, STRATOSPHERE, 'rgba(75, 0, 130, 0.3)', 'Stratosphere'); // Stratosphere
+    drawRectangle(STRATOSPHERE, MESOSPHERE, 'rgba(255, 0, 0, 0.3)', 'Mesosphere'); // Mesosphere
+    drawRectangle(MESOSPHERE, THERMOSPHERE, 'rgba(255, 165, 0, 0.3)', 'Thermosphere'); // Thermosphere
   }
 };
 
