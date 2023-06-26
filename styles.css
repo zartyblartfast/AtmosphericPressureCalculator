@@ -30,7 +30,7 @@ main {
 }
 
 .input-section, .output-section {
-  width: 100%;
+  width: 75%;
 }
 
 .input-section label {
