@@ -123,7 +123,7 @@ function generatePressureChart(seaLevelPressure, standardTemperature) {
       
         // Draw text in the middle of the rectangle
         ctx.save(); // Save the current state
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.8)'; // Darker grey color
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'; // Darker grey color
         ctx.font = '14px Arial';
         const textWidth = ctx.measureText(text).width;
         const textX = (xStart + xEnd) / 2; // Center the text
@@ -173,7 +173,7 @@ function generatePressureChart(seaLevelPressure, standardTemperature) {
         const text = 'T-Lapse-Rate: ' + lapseRate + ' C';
         const textWidth = ctx.measureText(text).width;
         const textX = xStart + 10; // Shift the text rightwards
-        const textY = yBottom - 40; // Shift the text closer to the x-axis
+        const textY = yBottom - 80; // Shift the text closer to the x-axis
         ctx.translate(textX, textY);
         ctx.rotate(-Math.PI / 2); // Rotate the canvas
         ctx.fillText(text, -textWidth / 2, 0);
