@@ -4,6 +4,13 @@ const STRATOSPHERE_LAPSE_RATE = 1; // in °C/km
 const MESOSPHERE_LAPSE_RATE = -2; // in °C/km
 const xMax = 100;
 
+const TLAPSE_BOUNDARY_1 = 11;
+const TLAPSE_BOUNDARY_2 = 20;
+const TLAPSE_BOUNDARY_3 = 32;
+const TLAPSE_BOUNDARY_4 = 47;
+const TLAPSE_BOUNDARY_5 = 85;
+const TLAPSE_BOUNDARY_6 = xMax;
+
 // Variables for inputs
 let seaLevelPressureInput = document.getElementById('sea-level-pressure');
 let altitudeInput = document.getElementById('altitude');
@@ -97,43 +104,88 @@ function generatePressureChart(seaLevelPressure, standardTemperature) {
 
   console.log(data)
 
-
-// Chart.js plugin for drawing rectangles
-const drawRectanglesPlugin = {
-  id: 'drawRectangles',
-  beforeDraw(chart, args, options) {
-    const {ctx, scales} = chart;
-    const {x, y} = scales;
-    
-    function drawRectangle(start, end, color, text) {
-      const xStart = x.getPixelForValue(start);
-      const xEnd = x.getPixelForValue(end);
-      const yTop = y.getPixelForValue(y.max);
-      const yBottom = y.getPixelForValue(y.min);
-    
-      ctx.fillStyle = color;
-      ctx.fillRect(xStart, yTop, xEnd - xStart, yBottom - yTop);
-    
-      // Draw text in the middle of the rectangle
-      ctx.save(); // Save the current state
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.8)'; // Darker grey color
-      ctx.font = '14px Arial';
-      const textWidth = ctx.measureText(text).width;
-      const textX = (xStart + xEnd) / 2; // Center the text
-      const textY = yTop + (yBottom - yTop) * 0.1 + textWidth / 2; // Shift the text upwards
-      ctx.translate(textX, textY);
-      ctx.rotate(-Math.PI / 2); // Rotate the canvas
-      ctx.fillText(text, -textWidth / 2, 0);
-      ctx.restore(); // Restore the state
+  
+  // Chart.js plugin for drawing rectangles
+  const drawRectanglesPlugin = {
+    id: 'drawRectangles',
+    beforeDraw(chart, args, options) {
+      const {ctx, scales} = chart;
+      const {x, y} = scales;
+      
+      function drawRectangle(start, end, color, text) {
+        const xStart = x.getPixelForValue(start);
+        const xEnd = x.getPixelForValue(end);
+        const yTop = y.getPixelForValue(y.max);
+        const yBottom = y.getPixelForValue(y.min);
+      
+        ctx.fillStyle = color;
+        ctx.fillRect(xStart, yTop, xEnd - xStart, yBottom - yTop);
+      
+        // Draw text in the middle of the rectangle
+        ctx.save(); // Save the current state
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.8)'; // Darker grey color
+        ctx.font = '14px Arial';
+        const textWidth = ctx.measureText(text).width;
+        const textX = (xStart + xEnd) / 2; // Center the text
+        const textY = yTop + (yBottom - yTop) * 0.1 + textWidth / 2; // Shift the text upwards
+        ctx.translate(textX, textY);
+        ctx.rotate(-Math.PI / 2); // Rotate the canvas
+        ctx.fillText(text, -textWidth / 2, 0);
+        ctx.restore(); // Restore the state
+      }
+  
+      // Draw rectangles for the atmospheric layers
+      drawRectangle(0, TROPOSPHERE, 'rgba(135, 206, 235, 0.3)', 'Troposphere'); // Troposphere
+      drawRectangle(TROPOSPHERE, STRATOSPHERE, 'rgba(75, 0, 130, 0.3)', 'Stratosphere'); // Stratosphere
+      drawRectangle(STRATOSPHERE, MESOSPHERE, 'rgba(255, 0, 0, 0.3)', 'Mesosphere'); // Mesosphere
+      drawRectangle(MESOSPHERE, THERMOSPHERE, 'rgba(255, 165, 0, 0.3)', 'Thermosphere'); // Thermosphere
     }
+  };
+  
+  const drawBoundariesPlugin = {
+    id: 'drawBoundaries',
+    beforeDraw(chart, args, options) {
+      const {ctx, scales} = chart;
+      const {x, y} = scales;
+  
+      // Function to draw a boundary line
+      function drawBoundaryLine(start, lapseRate) {
+        const xStart = x.getPixelForValue(start);
+        const yTop = y.getPixelForValue(y.max);
+        const yBottom = y.getPixelForValue(y.min);
+  
+        // Draw the line
+        ctx.save();
+        ctx.beginPath();
+        ctx.moveTo(xStart, yTop);
+        ctx.lineTo(xStart, yBottom);
+        ctx.strokeStyle = 'rgba(0, 0, 0, 0.6)'; // Grey color
+        ctx.setLineDash([5, 15]); // Set the line to be dashed
+        ctx.stroke();
+        ctx.restore();
+  
+        // Draw the label
+        ctx.save();
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.8)'; // Darker grey color
+        ctx.font = '14px Arial';
+        const text = 'T-Lapse-Rate: ' + lapseRate + ' C';
+        const textWidth = ctx.measureText(text).width;
+        const textX = xStart + 10; // Shift the text rightwards
+        const textY = yTop + 20; // Shift the text downwards
+        ctx.fillText(text, textX, textY);
+        ctx.restore();
+      }
+  
+      // Draw boundary lines
+      drawBoundaryLine(0, TROPOSPHERE_LAPSE_RATE);
+      drawBoundaryLine(11, 0);
+      drawBoundaryLine(20, STRATOSPHERE_LAPSE_RATE);
+      drawBoundaryLine(32, 0);
+      drawBoundaryLine(47, MESOSPHERE_LAPSE_RATE);
+      drawBoundaryLine(85, 0);
+    }
+  };
 
-    // Draw rectangles for the atmospheric layers
-    drawRectangle(0, TROPOSPHERE, 'rgba(135, 206, 235, 0.3)', 'Troposphere'); // Troposphere
-    drawRectangle(TROPOSPHERE, STRATOSPHERE, 'rgba(75, 0, 130, 0.3)', 'Stratosphere'); // Stratosphere
-    drawRectangle(STRATOSPHERE, MESOSPHERE, 'rgba(255, 0, 0, 0.3)', 'Mesosphere'); // Mesosphere
-    drawRectangle(MESOSPHERE, THERMOSPHERE, 'rgba(255, 165, 0, 0.3)', 'Thermosphere'); // Thermosphere
-  }
-};
 
   // Create new chart
   chart = new Chart(ctx, {
@@ -167,7 +219,7 @@ const drawRectanglesPlugin = {
         drawRectangles: {} // Enable the drawRectangles plugin
       }
     },
-    plugins: [drawRectanglesPlugin]
+    plugins: [drawRectanglesPlugin, drawBoundariesPlugin]
   });
 }
 
