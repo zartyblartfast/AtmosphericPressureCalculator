@@ -3,6 +3,7 @@
 const TROPOSPHERE_LAPSE_RATE = -6.5; // in °C/km
 const STRATOSPHERE_LAPSE_RATE = 1; // in °C/km
 const MESOSPHERE_LAPSE_RATE = -2; // in °C/km
+const xMax = 100;
 
 // Variables for inputs
 let seaLevelPressureInput = document.getElementById('sea-level-pressure');
@@ -61,11 +62,11 @@ let chart;
 function generatePressureChart(seaLevelPressure, standardTemperature) {
   const ctx = document.getElementById('pressure-chart').getContext('2d');
 
-  // Constants for the atmospheric layers in km
-  const TROPOSPHERE = 11;
-  const STRATOSPHERE = 32;
-  const MESOSPHERE = 47;
-  const THERMOSPHERE = 85;
+  // Constants for atmospheric layer boundaries
+  const TROPOSPHERE = 11; // in km
+  const STRATOSPHERE = 50; // in km
+  const MESOSPHERE = 80; // in km
+  const THERMOSPHERE = xMax; // in km
 
   // Data for chart
   let data = {
@@ -97,14 +98,14 @@ function generatePressureChart(seaLevelPressure, standardTemperature) {
 
   console.log(data)
 
+
 // Chart.js plugin for drawing rectangles
 const drawRectanglesPlugin = {
   id: 'drawRectangles',
   beforeDraw(chart, args, options) {
     const {ctx, scales} = chart;
     const {x, y} = scales;
-    const xMax = x.max;
-
+    
     function drawRectangle(start, end, color, text) {
       const xStart = x.getPixelForValue(start);
       const xEnd = x.getPixelForValue(end);
@@ -128,10 +129,10 @@ const drawRectanglesPlugin = {
     }
 
     // Draw rectangles for the atmospheric layers
-    drawRectangle(0, TROPOSPHERE, 'rgba(0, 0, 255, 0.1)', 'troposphere'); // Troposphere
-    drawRectangle(TROPOSPHERE, STRATOSPHERE, 'rgba(0, 255, 0, 0.1)', 'stratosphere'); // Stratosphere
-    drawRectangle(STRATOSPHERE, MESOSPHERE, 'rgba(255, 255, 0, 0.1)', 'mesosphere'); // Mesosphere
-    drawRectangle(MESOSPHERE, THERMOSPHERE, 'rgba(255, 0, 0, 0.1)', 'thermosphere'); // Thermosphere
+    drawRectangle(0, TROPOSPHERE, 'rgba(135, 206, 235, 0.5)', 'troposphere'); // Troposphere
+    drawRectangle(TROPOSPHERE, STRATOSPHERE, 'rgba(75, 0, 130, 0.5)', 'stratosphere'); // Stratosphere
+    drawRectangle(STRATOSPHERE, MESOSPHERE, 'rgba(255, 0, 0, 0.5)', 'mesosphere'); // Mesosphere
+    drawRectangle(MESOSPHERE, THERMOSPHERE, 'rgba(255, 165, 0, 0.5)', 'thermosphere'); // Thermosphere
   }
 };
 
@@ -144,7 +145,7 @@ const drawRectanglesPlugin = {
       scales: {
         x: {
           min: 0,
-          max: 100,
+          max: xMax,
           title: {
             display: true,
             text: 'Altitude (km)'
