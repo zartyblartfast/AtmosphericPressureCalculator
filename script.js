@@ -180,18 +180,6 @@ function generatePressureChart(seaLevelPressure, standardTemperature) {
         ctx.restore();
       }
 
-        // Draw the label
-        ctx.save();
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.8)'; // Darker grey color
-        ctx.font = '14px Arial';
-        const text = 'T-Lapse-Rate: ' + lapseRate + ' C';
-        const textWidth = ctx.measureText(text).width;
-        const textX = xStart + 10; // Shift the text rightwards
-        //const textY = yTop + 20; // Shift the text downwards
-        const textY = yBottom - 20; // Shift the text upwards from the bottom
-        ctx.fillText(text, textX, textY);
-        ctx.restore();
-      }
   
       // Draw boundary lines
       drawBoundaryLine(0, TROPOSPHERE_LAPSE_RATE);
