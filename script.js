@@ -173,7 +173,7 @@ function generatePressureChart(seaLevelPressure, standardTemperature) {
         const text = 'T-Lapse-Rate: ' + lapseRate + ' C';
         const textWidth = ctx.measureText(text).width;
         const textX = xStart + 10; // Shift the text rightwards
-        const textY = yBottom - 20; // Shift the text closer to the x-axis
+        const textY = yBottom - 40; // Shift the text closer to the x-axis
         ctx.translate(textX, textY);
         ctx.rotate(-Math.PI / 2); // Rotate the canvas
         ctx.fillText(text, -textWidth / 2, 0);
