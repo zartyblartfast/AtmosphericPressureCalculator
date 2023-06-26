@@ -1,4 +1,3 @@
-// Atmospheric Pressure Calculator
 // Constants for temperature lapse rates
 const TROPOSPHERE_LAPSE_RATE = -6.5; // in °C/km
 const STRATOSPHERE_LAPSE_RATE = 1; // in °C/km
