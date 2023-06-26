@@ -113,20 +113,19 @@ const drawRectanglesPlugin = {
     const {x, y} = scales;
 
     function darkenColor(color, factor) {
-      let rgba = color.slice(5, -1).split(', '); // Get the r, g, b, a values
-      let r = Math.floor(parseInt(rgba[0]) * factor);
-      let g = Math.floor(parseInt(rgba[1]) * factor);
-      let b = Math.floor(parseInt(rgba[2]) * factor);
-      let a = rgba[3]; // Keep the same alpha value
-      
-      // Ensure the values are within the valid range (0-255)
-      r = Math.min(r, 255);
-      g = Math.min(g, 255);
-      b = Math.min(b, 255);
-      
-      return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')';
+      const rgbaMatch = color.match(/rgba?\((\d+), (\d+), (\d+)(?:, ([\d.]+))?\)/);
+      if (!rgbaMatch) {
+        // Invalid color format, return original color
+        return color;
+      }
+    
+      const r = Math.floor(parseInt(rgbaMatch[1]) * factor);
+      const g = Math.floor(parseInt(rgbaMatch[2]) * factor);
+      const b = Math.floor(parseInt(rgbaMatch[3]) * factor);
+      const a = rgbaMatch[4] !== undefined ? parseFloat(rgbaMatch[4]) : 1;
+    
+      return `rgba(${r}, ${g}, ${b}, ${a})`;
     }
-
 
     function drawRectangle(start, end, color, text) {
       const xStart = x.getPixelForValue(start);
@@ -139,7 +138,7 @@ const drawRectanglesPlugin = {
     
       // Draw text in the middle of the rectangle
       ctx.save(); // Save the current state
-      ctx.fillStyle = darkenColor(color, 0.3); // Darker shade of the rectangle color
+      ctx.fillStyle = darkenColor(color, 0.5); // Darker shade of the rectangle color
       ctx.font = '14px Arial';
       const textWidth = ctx.measureText(text).width;
       const textX = (xStart + xEnd) / 2; // Center the text
