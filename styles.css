@@ -11,18 +11,17 @@ header {
 }
 
 main {
-  display: flex;
+  display: grid; /* Change from flex to grid */
+  grid-template-columns: 1fr 2fr; /* This will divide the main area into two columns, the left one will take 1 fraction of the space, and the right one will take 2 fractions */
+  gap: 20px; /* This will add some space between the columns */
   padding: 2px;
   align-items: flex-start;
-  justify-content: center; /* Add this line */
 }
 
 .input-output-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-right: 10px; /* Reduce this value */
-  max-width: 75%; /* Add this line */
 }
 
 .input-section, .output-section {
@@ -59,5 +58,4 @@ main {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  flex-grow: 1; /* Add this line back */
 }
