@@ -113,12 +113,11 @@ const drawRectanglesPlugin = {
     const {x, y} = scales;
 
     function darkenColor(color, factor) {
-      const rgba = color.slice(5, -1).split(', '); // Get the r, g, b, a values
-      const r = Math.max(0, Math.floor(parseInt(rgba[0]) - 255 * factor));
-      const g = Math.max(0, Math.floor(parseInt(rgba[1]) - 255 * factor));
-      const b = Math.max(0, Math.floor(parseInt(rgba[2]) - 255 * factor));
-      const a = rgba[3]; // Keep the same alpha value
-    
+      let rgba = color.slice(5, -1).split(', '); // Get the r, g, b, a values
+      let r = Math.floor(parseInt(rgba[0]) * factor);
+      let g = Math.floor(parseInt(rgba[1]) * factor);
+      let b = Math.floor(parseInt(rgba[2]) * factor);
+      let a = rgba[3]; // Keep the same alpha value
       return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')';
     }
     
