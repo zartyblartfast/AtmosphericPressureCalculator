@@ -13,7 +13,7 @@ header {
 main {
   display: grid;
   grid-template-columns: 1.5fr 1.5fr;
-  gap: 50px;  /* adjust this to the amount of space you want between columns */
+  gap: 10px;  /* adjust this to the amount of space you want between columns */
   padding: 2px;
   align-items: flex-start;
 }
