@@ -215,9 +215,6 @@ function generatePressureChart(seaLevelPressure, standardTemperature) {
           beginAtZero: true
         }
       },
-      plugins: {
-        drawRectangles: {} // Enable the drawRectangles plugin
-      }
     },
     plugins: [drawRectanglesPlugin, drawBoundariesPlugin]
   });
