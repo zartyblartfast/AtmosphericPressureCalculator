@@ -169,11 +169,11 @@ function generatePressureChart(seaLevelPressure, standardTemperature) {
         // Draw the label
         ctx.save();
         ctx.fillStyle = 'rgba(0, 0, 0, 0.8)'; // Darker grey color
-        ctx.font = '10px Arial'; // Smaller font size
+        ctx.font = '8px Arial'; // Smaller font size
         const text = 'T-Lapse-Rate: ' + lapseRate + ' C';
         const textWidth = ctx.measureText(text).width;
         const textX = xStart + 10; // Shift the text rightwards
-        const textY = yBottom - 80; // Shift the text closer to the x-axis
+        const textY = yBottom - 50; // Shift the text closer to the x-axis
         ctx.translate(textX, textY);
         ctx.rotate(-Math.PI / 2); // Rotate the canvas
         ctx.fillText(text, -textWidth / 2, 0);
