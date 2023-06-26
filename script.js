@@ -138,7 +138,7 @@ const drawRectanglesPlugin = {
     
       // Draw text in the middle of the rectangle
       ctx.save(); // Save the current state
-      ctx.fillStyle = darkenColor(color, 0.5); // Darker shade of the rectangle color
+      ctx.fillStyle = darkenColor(color, 0.1); // Darker shade of the rectangle color
       ctx.font = '14px Arial';
       const textWidth = ctx.measureText(text).width;
       const textX = (xStart + xEnd) / 2; // Center the text
