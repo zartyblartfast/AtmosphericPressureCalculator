@@ -119,9 +119,9 @@ const drawRectanglesPlugin = {
         return color;
       }
     
-      const r = Math.floor(parseInt(rgbaMatch[1]) * factor);
-      const g = Math.floor(parseInt(rgbaMatch[2]) * factor);
-      const b = Math.floor(parseInt(rgbaMatch[3]) * factor);
+      const r = Math.round(parseInt(rgbaMatch[1]) * factor);
+      const g = Math.round(parseInt(rgbaMatch[2]) * factor);
+      const b = Math.round(parseInt(rgbaMatch[3]) * factor);
       const a = rgbaMatch[4] !== undefined ? parseFloat(rgbaMatch[4]) : 1;
     
       return `rgba(${r}, ${g}, ${b}, ${a})`;
