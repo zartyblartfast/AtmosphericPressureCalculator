@@ -155,15 +155,25 @@ function generatePressureChart(seaLevelPressure, standardTemperature) {
         const yBottom = y.getPixelForValue(y.min);
   
         // Draw the line
-        ctx.save();
-        ctx.beginPath();
-        ctx.moveTo(xStart, yTop);
-        ctx.lineTo(xStart, yBottom);
-        ctx.strokeStyle = 'rgba(0, 0, 0, 0.6)'; // Grey color
-        ctx.setLineDash([5, 15]); // Set the line to be dashed
-        ctx.stroke();
-        ctx.restore();
-  
+        //ctx.save();
+        //ctx.beginPath();
+        //ctx.moveTo(xStart, yTop);
+        //ctx.lineTo(xStart, yBottom);
+        //ctx.strokeStyle = 'rgba(0, 0, 0, 0.6)'; // Grey color
+        //ctx.setLineDash([5, 15]); // Set the line to be dashed
+        //ctx.stroke();
+        //ctx.restore();
+        if(start !== 0) {
+          // Draw the line
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(xStart, yTop);
+          ctx.lineTo(xStart, yBottom);
+          ctx.strokeStyle = 'rgba(0, 0, 0, 0.6)'; // Grey color
+          ctx.setLineDash([5, 15]); // Set the line to be dashed
+          ctx.stroke();
+          ctx.restore();
+  }
         // Draw the label
         ctx.save();
         ctx.fillStyle = 'rgba(0, 0, 0, 0.8)'; // Darker grey color
