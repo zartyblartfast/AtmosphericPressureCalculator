@@ -13,7 +13,7 @@ header {
 main {
   display: grid; /* Change from flex to grid */
   grid-template-columns: 1fr 2fr; /* This will divide the main area into two columns, the left one will take 1 fraction of the space, and the right one will take 2 fractions */
-  gap: 20px; /* This will add some space between the columns */
+  gap: 100px; /* This will add some space between the columns */
   padding: 2px;
   align-items: flex-start;
 }
