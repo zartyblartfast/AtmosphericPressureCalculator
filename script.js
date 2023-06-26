@@ -120,7 +120,7 @@ const drawRectanglesPlugin = {
       ctx.font = '14px Arial';
       const textWidth = ctx.measureText(text).width;
       const textX = (xStart + xEnd) / 2; // Center the text
-      const textY = (yTop + yBottom) / 2 + textWidth / 2; // Center the text
+      const textY = yTop + (yBottom - yTop) * 0.25 + textWidth / 2; // Position the text at 25% of the rectangle height from the top
       ctx.translate(textX, textY);
       ctx.rotate(-Math.PI / 2); // Rotate the canvas
       ctx.fillText(text, -textWidth / 2, 0);
