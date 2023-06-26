@@ -117,11 +117,11 @@ const drawRectanglesPlugin = {
     
       // Draw text in the middle of the rectangle
       ctx.save(); // Save the current state
-      ctx.fillStyle = 'rgba(128, 128, 128, 0.7)'; // Grey color
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.8)'; // Darker grey color
       ctx.font = '14px Arial';
       const textWidth = ctx.measureText(text).width;
       const textX = (xStart + xEnd) / 2; // Center the text
-      const textY = yTop + (yBottom - yTop) * 0.25 + textWidth / 2; // Position the text at 25% of the rectangle height from the top
+      const textY = yTop + (yBottom - yTop) * 0.2 + textWidth / 2; // Shift the text upwards
       ctx.translate(textX, textY);
       ctx.rotate(-Math.PI / 2); // Rotate the canvas
       ctx.fillText(text, -textWidth / 2, 0);
