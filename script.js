@@ -159,6 +159,20 @@ seaLevelPressureInput.addEventListener('input', update);
 altitudeInput.addEventListener('input', update);
 standardTemperatureInput.addEventListener('input', update);
 
+// Add event listeners to input number fields
+seaLevelPressureValue.addEventListener('input', function() {
+  seaLevelPressureInput.value = this.value;
+  update();
+});
+altitudeValue.addEventListener('input', function() {
+  altitudeInput.value = this.value;
+  update();
+});
+standardTemperatureValue.addEventListener('input', function() {
+  standardTemperatureInput.value = this.value;
+  update();
+});
+
 // Initial call to update function
 document.addEventListener('DOMContentLoaded', function() {
   update();
