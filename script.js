@@ -97,32 +97,40 @@ function generatePressureChart(seaLevelPressure, standardTemperature) {
 
   console.log(data)
 
-  // Chart.js plugin for drawing rectangles
-  const drawRectanglesPlugin = {
-    id: 'drawRectangles',
-    beforeDraw(chart, args, options) {
-      const {ctx, scales} = chart;
-      const {x, y} = scales;
-      const xMax = x.max;
+// Chart.js plugin for drawing rectangles
+const drawRectanglesPlugin = {
+  id: 'drawRectangles',
+  beforeDraw(chart, args, options) {
+    const {ctx, scales} = chart;
+    const {x, y} = scales;
+    const xMax = x.max;
 
-      // Function to draw a rectangle with a specified color
-      function drawRectangle(start, end, color) {
-        const xStart = x.getPixelForValue(start);
-        const xEnd = x.getPixelForValue(end);
-        const yTop = y.getPixelForValue(y.max);
-        const yBottom = y.getPixelForValue(y.min);
+    // Function to draw a rectangle with a specified color
+    function drawRectangle(start, end, color, text) {
+      const xStart = x.getPixelForValue(start);
+      const xEnd = x.getPixelForValue(end);
+      const yTop = y.getPixelForValue(y.max);
+      const yBottom = y.getPixelForValue(y.min);
 
-        ctx.fillStyle = color;
-        ctx.fillRect(xStart, yTop, xEnd - xStart, yBottom - yTop);
-      }
+      ctx.fillStyle = color;
+      ctx.fillRect(xStart, yTop, xEnd - xStart, yBottom - yTop);
 
-      // Draw rectangles for the atmospheric layers
-      drawRectangle(0, TROPOSPHERE, 'rgba(0, 0, 255, 0.1)'); // Troposphere
-      drawRectangle(TROPOSPHERE, STRATOSPHERE, 'rgba(0, 255, 0, 0.1)'); // Stratosphere
-      drawRectangle(STRATOSPHERE, MESOSPHERE, 'rgba(255, 255, 0, 0.1)'); // Mesosphere
-      drawRectangle(MESOSPHERE, THERMOSPHERE, 'rgba(255, 0, 0, 0.1)'); // Thermosphere
+      // Draw text in the middle of the rectangle
+      ctx.fillStyle = 'rgba(128, 128, 128, 0.7)'; // Grey color
+      ctx.font = '20px Arial';
+      const textWidth = ctx.measureText(text).width;
+      const textX = (xStart + xEnd) / 2 - textWidth / 2; // Center the text
+      const textY = (yTop + yBottom) / 2 + 10; // Center the text
+      ctx.fillText(text, textX, textY);
     }
-  };
+
+    // Draw rectangles for the atmospheric layers
+    drawRectangle(0, TROPOSPHERE, 'rgba(0, 0, 255, 0.1)', 'troposphere'); // Troposphere
+    drawRectangle(TROPOSPHERE, STRATOSPHERE, 'rgba(0, 255, 0, 0.1)', 'stratosphere'); // Stratosphere
+    drawRectangle(STRATOSPHERE, MESOSPHERE, 'rgba(255, 255, 0, 0.1)', 'mesosphere'); // Mesosphere
+    drawRectangle(MESOSPHERE, THERMOSPHERE, 'rgba(255, 0, 0, 0.1)', 'thermosphere'); // Thermosphere
+  }
+};
 
   // Create new chart
   chart = new Chart(ctx, {
