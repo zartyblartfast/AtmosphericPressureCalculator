@@ -105,23 +105,26 @@ const drawRectanglesPlugin = {
     const {x, y} = scales;
     const xMax = x.max;
 
-    // Function to draw a rectangle with a specified color
     function drawRectangle(start, end, color, text) {
       const xStart = x.getPixelForValue(start);
       const xEnd = x.getPixelForValue(end);
       const yTop = y.getPixelForValue(y.max);
       const yBottom = y.getPixelForValue(y.min);
-
+    
       ctx.fillStyle = color;
       ctx.fillRect(xStart, yTop, xEnd - xStart, yBottom - yTop);
-
+    
       // Draw text in the middle of the rectangle
+      ctx.save(); // Save the current state
       ctx.fillStyle = 'rgba(128, 128, 128, 0.7)'; // Grey color
-      ctx.font = '20px Arial';
+      ctx.font = '14px Arial';
       const textWidth = ctx.measureText(text).width;
-      const textX = (xStart + xEnd) / 2 - textWidth / 2; // Center the text
-      const textY = (yTop + yBottom) / 2 + 10; // Center the text
-      ctx.fillText(text, textX, textY);
+      const textX = (xStart + xEnd) / 2; // Center the text
+      const textY = (yTop + yBottom) / 2 + textWidth / 2; // Center the text
+      ctx.translate(textX, textY);
+      ctx.rotate(-Math.PI / 2); // Rotate the canvas
+      ctx.fillText(text, -textWidth / 2, 0);
+      ctx.restore(); // Restore the state
     }
 
     // Draw rectangles for the atmospheric layers
