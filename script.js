@@ -105,42 +105,52 @@ function generatePressureChart(seaLevelPressure, standardTemperature) {
   console.log(data)
 
   
-  // Chart.js plugin for drawing rectangles
-  const drawRectanglesPlugin = {
-    id: 'drawRectangles',
-    beforeDraw(chart, args, options) {
-      const {ctx, scales} = chart;
-      const {x, y} = scales;
-      
-      function drawRectangle(start, end, color, text) {
-        const xStart = x.getPixelForValue(start);
-        const xEnd = x.getPixelForValue(end);
-        const yTop = y.getPixelForValue(y.max);
-        const yBottom = y.getPixelForValue(y.min);
-      
-        ctx.fillStyle = color;
-        ctx.fillRect(xStart, yTop, xEnd - xStart, yBottom - yTop);
-      
-        // Draw text in the middle of the rectangle
-        ctx.save(); // Save the current state
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'; // Darker grey color
-        ctx.font = '14px Arial';
-        const textWidth = ctx.measureText(text).width;
-        const textX = (xStart + xEnd) / 2; // Center the text
-        const textY = yTop + (yBottom - yTop) * 0.1 + textWidth / 2; // Shift the text upwards
-        ctx.translate(textX, textY);
-        ctx.rotate(-Math.PI / 2); // Rotate the canvas
-        ctx.fillText(text, -textWidth / 2, 0);
-        ctx.restore(); // Restore the state
-      }
-  
-      // Draw rectangles for the atmospheric layers
-      drawRectangle(0, TROPOSPHERE, 'rgba(135, 206, 235, 0.3)', 'Troposphere'); // Troposphere
-      drawRectangle(TROPOSPHERE, STRATOSPHERE, 'rgba(75, 0, 130, 0.3)', 'Stratosphere'); // Stratosphere
-      drawRectangle(STRATOSPHERE, MESOSPHERE, 'rgba(255, 0, 0, 0.3)', 'Mesosphere'); // Mesosphere
-      drawRectangle(MESOSPHERE, THERMOSPHERE, 'rgba(255, 165, 0, 0.3)', 'Thermosphere'); // Thermosphere
+// Chart.js plugin for drawing rectangles
+const drawRectanglesPlugin = {
+  id: 'drawRectangles',
+  beforeDraw(chart, args, options) {
+    const {ctx, scales} = chart;
+    const {x, y} = scales;
+
+    function darkenColor(color, factor) {
+      let rgba = color.slice(5, -1).split(', '); // Get the r, g, b, a values
+      let r = Math.floor(parseInt(rgba[0]) * factor);
+      let g = Math.floor(parseInt(rgba[1]) * factor);
+      let b = Math.floor(parseInt(rgba[2]) * factor);
+      let a = rgba[3]; // Keep the same alpha value
+      return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')';
     }
-  };
+
+    function drawRectangle(start, end, color, text) {
+      const xStart = x.getPixelForValue(start);
+      const xEnd = x.getPixelForValue(end);
+      const yTop = y.getPixelForValue(y.max);
+      const yBottom = y.getPixelForValue(y.min);
+    
+      ctx.fillStyle = color;
+      ctx.fillRect(xStart, yTop, xEnd - xStart, yBottom - yTop);
+    
+      // Draw text in the middle of the rectangle
+      ctx.save(); // Save the current state
+      ctx.fillStyle = darkenColor(color, 0.6); // Darker shade of the rectangle color
+      ctx.font = '14px Arial';
+      const textWidth = ctx.measureText(text).width;
+      const textX = (xStart + xEnd) / 2; // Center the text
+      const textY = yTop + (yBottom - yTop) * 0.1 + textWidth / 2; // Shift the text upwards
+      ctx.translate(textX, textY);
+      ctx.rotate(-Math.PI / 2); // Rotate the canvas
+      ctx.fillText(text, -textWidth / 2, 0);
+      ctx.restore(); // Restore the state
+    }
+
+    // Draw rectangles for the atmospheric layers
+    drawRectangle(0, TROPOSPHERE, 'rgba(135, 206, 235, 0.3)', 'Troposphere'); // Troposphere
+    drawRectangle(TROPOSPHERE, STRATOSPHERE, 'rgba(75, 0, 130, 0.3)', 'Stratosphere'); // Stratosphere
+    drawRectangle(STRATOSPHERE, MESOSPHERE, 'rgba(255, 0, 0, 0.3)', 'Mesosphere'); // Mesosphere
+    drawRectangle(MESOSPHERE, THERMOSPHERE, 'rgba(255, 165, 0, 0.3)', 'Thermosphere'); // Thermosphere
+  }
+};
+
   
   const drawBoundariesPlugin = {
     id: 'drawBoundaries',
