@@ -118,8 +118,15 @@ const drawRectanglesPlugin = {
       let g = Math.floor(parseInt(rgba[1]) * factor);
       let b = Math.floor(parseInt(rgba[2]) * factor);
       let a = rgba[3]; // Keep the same alpha value
+      
+      // Ensure the values are within the valid range (0-255)
+      r = Math.min(r, 255);
+      g = Math.min(g, 255);
+      b = Math.min(b, 255);
+      
       return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')';
     }
+
 
     function drawRectangle(start, end, color, text) {
       const xStart = x.getPixelForValue(start);
@@ -132,7 +139,7 @@ const drawRectanglesPlugin = {
     
       // Draw text in the middle of the rectangle
       ctx.save(); // Save the current state
-      ctx.fillStyle = darkenColor(color, 0.9); // Darker shade of the rectangle color
+      ctx.fillStyle = darkenColor(color, 0.3); // Darker shade of the rectangle color
       ctx.font = '14px Arial';
       const textWidth = ctx.measureText(text).width;
       const textX = (xStart + xEnd) / 2; // Center the text
