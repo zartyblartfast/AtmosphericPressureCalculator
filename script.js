@@ -125,8 +125,11 @@ const drawRectanglesPlugin = {
     function drawRectangle(start, end, color, text) {
       const xStart = x.getPixelForValue(start);
       const xEnd = x.getPixelForValue(end);
-      const yTop = y.getPixelForValue(y.max);
-      const yBottom = y.getPixelForValue(y.min);
+      //const yTop = y.getPixelForValue(y.max);
+      //const yBottom = y.getPixelForValue(y.min);
+      const yTop = y.getPixelForValue(1200);  // your y-axis max value
+      const yBottom = y.getPixelForValue(0);  // your y-axis min value
+
     
       ctx.fillStyle = color;
       ctx.fillRect(xStart, yTop, xEnd - xStart, yBottom - yTop);
@@ -162,8 +165,11 @@ const drawRectanglesPlugin = {
       // Function to draw a boundary line
       function drawBoundaryLine(start, lapseRate) {
         const xStart = x.getPixelForValue(start);
-        const yTop = y.getPixelForValue(y.max);
-        const yBottom = y.getPixelForValue(y.min);
+        //const yTop = y.getPixelForValue(y.max);
+        //const yBottom = y.getPixelForValue(y.min);
+        const yTop = y.getPixelForValue(1200);  // your y-axis max value
+        const yBottom = y.getPixelForValue(0);  // your y-axis min value
+
       
         if(start !== 0) {
           // Draw the line
@@ -210,20 +216,22 @@ const drawRectanglesPlugin = {
     options: {
       responsive: true,
       scales: {
-        x: {
-          min: 0,
-          max: xMax,
-          title: {
-            display: true,
-            text: 'Altitude (km)'
-          },
-          ticks: {
-            callback: function(value) {
-              return Number(value).toFixed(0); // Display only integer values on the x-axis
+          x: {
+            min: 0,
+            max: xMax,
+            title: {
+              display: true,
+              text: 'Altitude (km)'
+            },
+            ticks: {
+              callback: function(value) {
+                return Number(value).toFixed(0); // Display only integer values on the x-axis
+              }
             }
-          }
-        },
-       y: {
+          },
+        y: {
+          min: 0,  // minimum y-axis value
+          max: 1200,  // maximum y-axis value
           title: {
             display: true,
             text: 'Air Pressure (hPa)'
