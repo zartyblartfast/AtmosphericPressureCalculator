@@ -14,8 +14,8 @@ const TLAPSE_BOUNDARY_6 = xMax;
 // Variables for inputs
 let seaLevelPressureInput = document.getElementById('sea-level-pressure');
 let altitudeInput = document.getElementById('altitude');
-//let standardTemperatureInput = document.getElementById('standard-temperature');
-let standardTemperatureInput = 15.0
+let standardTemperatureInput = document.getElementById('standard-temperature');
+//let standardTemperatureInput = 15.0
 
 // Variables for displaying input values
 let seaLevelPressureValue = document.getElementById('sea-level-pressure-number');
@@ -241,17 +241,18 @@ function update() {
   // Parse input values
   let seaLevelPressure = parseFloat(seaLevelPressureInput.value);
   let altitude = parseFloat(altitudeInput.value);
-  //let standardTemperature = parseFloat(standardTemperatureInput.value);
+  let standardTemperature = parseFloat(standardTemperatureInput.value);
 
   // Basic input validation
   if (isNaN(seaLevelPressure) || isNaN(altitude) || isNaN(standardTemperature)) {
+  //if (isNaN(seaLevelPressure) || isNaN(altitude)) {
     calculatedPressureOutput.textContent = "Invalid input";
     return;
   }
 
   console.log("Sea Level Pressure: " + seaLevelPressure);
   console.log("Altitude: " + altitude);
-  console.log("Standard Temperature: " + standardTemperature);
+  //console.log("Standard Temperature: " + standardTemperature);
 
   // Update displayed input values
   seaLevelPressureValue.value = seaLevelPressure.toFixed(2);
@@ -269,7 +270,7 @@ function update() {
 // Add event listeners to input fields
 seaLevelPressureInput.addEventListener('input', update);
 altitudeInput.addEventListener('input', update);
-//standardTemperatureInput.addEventListener('input', update);
+standardTemperatureInput.addEventListener('input', update);
 
 // Add event listeners to input number fields
 seaLevelPressureValue.addEventListener('input', function() {
@@ -280,10 +281,10 @@ altitudeValue.addEventListener('input', function() {
   altitudeInput.value = this.value;
   update();
 });
-//standardTemperatureValue.addEventListener('input', function() {
-//  standardTemperatureInput.value = this.value;
-//  update();
-//});
+standardTemperatureValue.addEventListener('input', function() {
+  standardTemperatureInput.value = this.value;
+  update();
+});
 
 // Initial call to update function
 document.addEventListener('DOMContentLoaded', function() {
