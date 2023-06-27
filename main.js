@@ -29,13 +29,6 @@ function updatePressureOutput() {
   calculatedPressureOutput.textContent = calculatedPressure.toFixed(2);
 }
 
-
-// Function to update chart
-function updateChart() {
-  // Function body remains the same...
-}
-
-
 // Function to update chart
 function updateChart() {
   // Parse input values
