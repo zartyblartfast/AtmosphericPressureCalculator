@@ -279,10 +279,10 @@ altitudeValue.addEventListener('input', function() {
   altitudeInput.value = this.value;
   update();
 });
-standardTemperatureValue.addEventListener('input', function() {
-  standardTemperatureInput.value = this.value;
-  update();
-});
+//standardTemperatureValue.addEventListener('input', function() {
+//  standardTemperatureInput.value = this.value;
+//  update();
+//});
 
 // Initial call to update function
 document.addEventListener('DOMContentLoaded', function() {
