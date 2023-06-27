@@ -16,8 +16,8 @@ main {
   align-items: flex-start;
 }
 
-.invisible-element {
-  visibility: hidden;
+.hide-element {
+  display: none;
 }
 
 .input-output-container {
