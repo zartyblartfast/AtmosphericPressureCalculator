@@ -202,6 +202,7 @@ const drawRectanglesPlugin = {
     }
   };
 
+
   // Create new chart
   chart = new Chart(ctx, {
     type: 'line',
@@ -232,10 +233,11 @@ const drawRectanglesPlugin = {
           beginAtZero: true
         }
       },
-      plugins: [drawRectanglesPlugin, drawBoundariesPlugin]
-    }
+    },
+    plugins: [drawRectanglesPlugin, drawBoundariesPlugin]
   });
 }
+
 
 function update() {
   // Parse input values
