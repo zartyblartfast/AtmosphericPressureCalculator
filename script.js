@@ -223,9 +223,7 @@ const drawRectanglesPlugin = {
             }
           }
         },
-        y: {
-          min: 0,  // minimum y-axis value
-          max: 1200,  // maximum y-axis value
+       y: {
           title: {
             display: true,
             text: 'Air Pressure (hPa)'
