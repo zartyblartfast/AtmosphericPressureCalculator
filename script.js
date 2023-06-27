@@ -202,40 +202,40 @@ const drawRectanglesPlugin = {
     }
   };
 
-
-// Create new chart
-chart = new Chart(ctx, {
-  type: 'line',
-  data: data,
-  options: {
-    responsive: true,
-    scales: {
-      x: {
-        min: 0,
-        max: xMax,
-        title: {
-          display: true,
-          text: 'Altitude (km)'
-        },
-        ticks: {
-          callback: function(value) {
-            return Number(value).toFixed(0); // Display only integer values on the x-axis
+  // Create new chart
+  chart = new Chart(ctx, {
+    type: 'line',
+    data: data,
+    options: {
+      responsive: true,
+      scales: {
+        x: {
+          min: 0,
+          max: xMax,
+          title: {
+            display: true,
+            text: 'Altitude (km)'
+          },
+          ticks: {
+            callback: function(value) {
+              return Number(value).toFixed(0); // Display only integer values on the x-axis
+            }
           }
+        },
+        y: {
+          min: 0,  // minimum y-axis value
+          max: 1200,  // maximum y-axis value
+          title: {
+            display: true,
+            text: 'Air Pressure (hPa)'
+          },
+          beginAtZero: true
         }
       },
-      y: {
-        min: 0,  // minimum y-axis value
-        max: 1200,  // maximum y-axis value
-        title: {
-          display: true,
-          text: 'Air Pressure (hPa)'
-        },
-        beginAtZero: true
-      }
-    },
-    plugins: [drawRectanglesPlugin, drawBoundariesPlugin]
-  }
-});
+      plugins: [drawRectanglesPlugin, drawBoundariesPlugin]
+    }
+  });
+}
 
 function update() {
   // Parse input values
