@@ -1,6 +1,6 @@
 import { calculatePressure } from './pressureCalculation.js';
 import { seaLevelPressureInput, altitudeInput } from './htmlElements.js';
-import { TROPOPOSPHERE_LAPSE_RATE, STRATOSPHERE_LAPSE_RATE, MESOSPHERE_LAPSE_RATE, xMax } from './constants.js';
+import { TROPOSPHERE_LAPSE_RATE, STRATOSPHERE_LAPSE_RATE, MESOSPHERE_LAPSE_RATE, xMax } from './constants.js';
 
 export function generatePressureChart(seaLevelPressure, standardTemperature) {
   const ctx = document.getElementById('pressure-chart').getContext('2d');
