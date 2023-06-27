@@ -14,7 +14,8 @@ const TLAPSE_BOUNDARY_6 = xMax;
 // Variables for inputs
 let seaLevelPressureInput = document.getElementById('sea-level-pressure');
 let altitudeInput = document.getElementById('altitude');
-let standardTemperatureInput = document.getElementById('standard-temperature');
+//let standardTemperatureInput = document.getElementById('standard-temperature');
+let standardTemperatureInput = 15.0
 
 // Variables for displaying input values
 let seaLevelPressureValue = document.getElementById('sea-level-pressure-number');
