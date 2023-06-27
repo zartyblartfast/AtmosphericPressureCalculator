@@ -244,8 +244,8 @@ const drawRectanglesPlugin = {
   });
 }
 
-
-function update() {
+// Function to update pressure output
+function updatePressureOutput() {
   // Parse input values
   let seaLevelPressure = parseFloat(seaLevelPressureInput.value);
   let altitude = parseFloat(altitudeInput.value);
@@ -253,14 +253,13 @@ function update() {
 
   // Basic input validation
   if (isNaN(seaLevelPressure) || isNaN(altitude) || isNaN(standardTemperature)) {
-  //if (isNaN(seaLevelPressure) || isNaN(altitude)) {
     calculatedPressureOutput.textContent = "Invalid input";
     return;
   }
 
   console.log("Sea Level Pressure: " + seaLevelPressure);
   console.log("Altitude: " + altitude);
-  //console.log("Standard Temperature: " + standardTemperature);
+  console.log("Standard Temperature: " + standardTemperature);
 
   // Update displayed input values
   seaLevelPressureValue.value = seaLevelPressure.toFixed(2);
@@ -270,31 +269,55 @@ function update() {
   // Calculate the pressure using the user's altitude input
   const calculatedPressure = calculatePressure(seaLevelPressure, altitude, standardTemperature);
   calculatedPressureOutput.textContent = calculatedPressure.toFixed(2);
+}
+
+// Function to update chart
+function updateChart() {
+  // Parse input values
+  let seaLevelPressure = parseFloat(seaLevelPressureInput.value);
+  let standardTemperature = parseFloat(standardTemperatureInput.value);
+
+  // Basic input validation
+  if (isNaN(seaLevelPressure) || isNaN(standardTemperature)) {
+    return;
+  }
+
+  console.log("Sea Level Pressure: " + seaLevelPressure);
+  console.log("Standard Temperature: " + standardTemperature);
 
   // Generate the pressure chart
   generatePressureChart(seaLevelPressure, standardTemperature);
 }
 
 // Add event listeners to input fields
-seaLevelPressureInput.addEventListener('input', update);
-//altitudeInput.addEventListener('input', update);
-standardTemperatureInput.addEventListener('input', update);
+seaLevelPressureInput.addEventListener('input', function() {
+  updatePressureOutput();
+  updateChart();
+});
+altitudeInput.addEventListener('input', updatePressureOutput);
+standardTemperatureInput.addEventListener('input', function() {
+  updatePressureOutput();
+  updateChart();
+});
 
 // Add event listeners to input number fields
 seaLevelPressureValue.addEventListener('input', function() {
   seaLevelPressureInput.value = this.value;
-  update();
+  updatePressureOutput();
+  updateChart();
 });
 altitudeValue.addEventListener('input', function() {
   altitudeInput.value = this.value;
-  update();
+  updatePressureOutput();
 });
 standardTemperatureValue.addEventListener('input', function() {
   standardTemperatureInput.value = this.value;
-  update();
+  updatePressureOutput();
+  updateChart();
 });
 
 // Initial call to update function
 document.addEventListener('DOMContentLoaded', function() {
-  update();
+  updatePressureOutput();
+  updateChart();
 });
