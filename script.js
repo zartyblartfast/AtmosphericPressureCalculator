@@ -336,6 +336,7 @@ seaLevelPressureValue.addEventListener('input', function() {
 altitudeValue.addEventListener('input', function() {
   altitudeInput.value = this.value;
   updatePressureOutput();
+  updateChart();  // necessary to update the x axis marker on the chart
 });
 standardTemperatureValue.addEventListener('input', function() {
   standardTemperatureInput.value = this.value;
