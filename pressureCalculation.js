@@ -1,5 +1,6 @@
 import { TROPOSPHERE_LAPSE_RATE, STRATOSPHERE_LAPSE_RATE, MESOSPHERE_LAPSE_RATE } from './constants.js';
 
+// Function calculatePressure
 export function calculatePressure(seaLevelPressure, altitude, standardTemperature) {
   const g = 9.80665; // gravitational acceleration
   const m = 0.0289644; // molar mass of dry air
