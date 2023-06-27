@@ -209,6 +209,32 @@ const drawRectanglesPlugin = {
     }
   };
 
+  const markerPlugin = {
+  id: 'marker',
+  afterDraw(chart, args, options) {
+    const { ctx, scales } = chart;
+    const { x, y } = scales;
+    
+    const altitude = parseFloat(altitudeInput.value);
+    const xPosition = x.getPixelForValue(altitude);
+    const yPosition = y.getPixelForValue(y.min);  // y-axis min value
+
+    // Draw a marker
+    ctx.save();
+    ctx.beginPath();
+    ctx.arc(xPosition, yPosition + 10, 5, 0, 2 * Math.PI);  // Draw a circle
+    ctx.fillStyle = 'black';
+    ctx.fill();
+
+    // Draw a line from the marker to the x-axis
+    ctx.beginPath();
+    ctx.moveTo(xPosition, yPosition + 10);
+    ctx.lineTo(xPosition, yPosition);
+    ctx.strokeStyle = 'black';
+    ctx.stroke();
+    ctx.restore();
+  }
+};
 
   // Create new chart
   chart = new Chart(ctx, {
@@ -241,7 +267,7 @@ const drawRectanglesPlugin = {
         }
       },
     },
-    plugins: [drawRectanglesPlugin, drawBoundariesPlugin]
+     plugins: [drawRectanglesPlugin, drawBoundariesPlugin, markerPlugin]
   });
 }
 
