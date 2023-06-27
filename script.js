@@ -82,7 +82,8 @@ function generatePressureChart(seaLevelPressure, standardTemperature) {
       label: 'Air Pressure (hPa)',
       data: [], // This array will be populated with pressure values
       fill: false,
-      borderColor: 'rgb(75, 192, 192)',
+      //borderColor: 'rgb(75, 192, 192)',
+      borderColor: 'rgb(0, 0, 0)', // Black color
       tension: 0.1
     }]
   };
