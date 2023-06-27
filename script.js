@@ -222,13 +222,13 @@ const drawRectanglesPlugin = {
     // Draw a marker
     ctx.save();
     ctx.beginPath();
-    ctx.arc(xPosition, yPosition + 10, 5, 0, 2 * Math.PI);  // Draw a circle
+    ctx.arc(xPosition, yPosition -5, 5, 0, 2 * Math.PI);  // Draw a circle
     ctx.fillStyle = 'black';
     ctx.fill();
 
     // Draw a line from the marker to the x-axis
     ctx.beginPath();
-    ctx.moveTo(xPosition, yPosition + 10);
+    ctx.moveTo(xPosition, yPosition -5);
     ctx.lineTo(xPosition, yPosition);
     ctx.strokeStyle = 'black';
     ctx.stroke();
