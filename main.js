@@ -82,15 +82,5 @@ document.addEventListener('DOMContentLoaded', function() {
   updateChart();
 });
 
-// Add event listener for 'i' icon
-var infoIcon = document.getElementById("info-icon");
-infoIcon.addEventListener("click", function() {
-  var content = document.querySelector(".content");
-  if (content.style.display === "none" || content.style.display === ""){
-    content.style.display = "block";
-  } else {
-    content.style.display = "none";
-  }
-});
 
 
