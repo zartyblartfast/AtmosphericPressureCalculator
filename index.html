@@ -49,15 +49,21 @@
       <section class="output-section">
         <h2>Output</h2>
         <!-- Output label for calculated pressure -->
-        <p>Calculated Pressure: <span id="calculated-pressure"></span></p>
+        <p>Calculated Pressure: <span id="calculated-pressure"></span>
+          <span class="tooltip">i
+            <span class="tooltiptext">
+              This calculation is based on the barometric formula and the International Standard Atmosphere (ISA) model. For more details, see our <a href="#detailed-calculation-method">Detailed Calculation Method</a> section.
+            </span>
+          </span>
+        </p>
       </section>
     </div>
 
     <section class="visualization-section">
       <!-- Visualization of atmosphere as a line and the chart -->
       <canvas id="pressure-chart"></canvas>
-
     </section>
+
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0"></script>
