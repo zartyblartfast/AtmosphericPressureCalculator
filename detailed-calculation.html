@@ -5,6 +5,17 @@
   <h2>Our Verification Process</h2>
   <p>We've taken steps to ensure the accuracy of our calculations. The calculation method has been thoroughly reviewed and cross-referenced with established scientific models and formulas. We've tested the calculator with a variety of inputs to ensure it works correctly and provides reliable results.</p>
 
+  <h2>The Calculation Process in Detail</h2>
+  <ol>
+    <li><strong>Import constants for the temperature lapse rates in the troposphere, stratosphere, and mesosphere.</strong></li>
+    <li><strong>Define constants for gravitational acceleration (g), the molar mass of dry air (m), and the universal gas constant (R).</strong></li>
+    <li><strong>Determine the temperature lapse rate based on the altitude.</strong> The lapse rate is the rate at which atmospheric temperature decreases with an increase in altitude. The lapse rate varies in different layers of the atmosphere.</li>
+    <li><strong>Calculate the temperature at the given altitude</strong> by subtracting the product of the lapse rate and the altitude from the standard temperature.</li>
+    <li><strong>Adjust the temperature from Celsius to Kelvin.</strong></li>
+    <li><strong>Calculate the pressure at the given altitude</strong> using the formula for pressure in a gas at a certain height: <code>pressure = seaLevelPressure * exp(-(g * m * altitude * 1000) / (R * temperatureAtAltitudeK))</code>.</li>
+    <li><strong>Returns the calculated pressure.</strong></li>
+  </ol>
+  
   <h2>Further Reading and References</h2>
   <p>If you're interested in learning more about the science behind our calculator, we recommend the following resources:</p>
   <ul>
