@@ -23,6 +23,7 @@ export function generatePressureChart(seaLevelPressure, standardTemperature) {
       //borderColor: 'rgb(75, 192, 192)',
       borderColor: 'rgb(0, 0, 0)', // Black color
       tension: 0.1
+      pointRadius: 5
     }]
   };
 
