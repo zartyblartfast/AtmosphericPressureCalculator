@@ -85,7 +85,12 @@ document.addEventListener('DOMContentLoaded', function() {
 // Add event listener for 'i' icon
 var infoIcon = document.getElementById("info-icon");
 infoIcon.addEventListener("click", function() {
-  var detailedCalculationButton = document.getElementById("detailed-calculation-button");
-  detailedCalculationButton.click();
+  var content = document.querySelector(".content");
+  if (content.style.display === "none" || content.style.display === ""){
+    content.style.display = "block";
+  } else {
+    content.style.display = "none";
+  }
 });
+
 
