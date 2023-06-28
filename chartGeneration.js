@@ -208,7 +208,7 @@ chart = new Chart(ctx, {
       legend: {
         labels: {
           usePointStyle: true,
-          boxWidth: 2
+          boxWidth: 4
         }
       }
     }
