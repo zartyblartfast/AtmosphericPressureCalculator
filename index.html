@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
   <title>Atmospheric Pressure Visualizer</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -51,17 +52,21 @@
         <canvas id="pressure-chart"></canvas>
       </section>
     </div>
-
+    
     <button type="button" class="collapsible" id="detailed-calculation-button">Detailed Calculation Method</button>
-    <div class="content">
-      <p>Here is where you would put the detailed explanation of the calculation method...</p>
-    </div>
+    <div class="content"></div>
+    
+    <script>
+    $(document).ready(function(){
+      $(".content").load("detailed-calculation.html");
+    });
+    </script>
+
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0"></script>
   <script src="collapsible.js"></script>
   <script type="module" src="main.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </body>
 
 </html>
