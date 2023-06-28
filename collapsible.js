@@ -12,3 +12,10 @@ for (i = 0; i < coll.length; i++) {
     } 
   });
 }
+
+// Add event listener for 'i' icon
+var tooltip = document.querySelector(".tooltip");
+tooltip.addEventListener("click", function() {
+  var detailedCalculationButton = document.getElementById("detailed-calculation-button");
+  detailedCalculationButton.click();
+});
