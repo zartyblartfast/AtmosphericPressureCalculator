@@ -69,7 +69,7 @@ main {
   text-align: center;
   padding: 5px 0;
   border-radius: 6px;
-  font-size: 0.8em; /* Add this line to reduce the font size */
+  font-size: 0.8em;
 
   /* Position the tooltip text */
   position: absolute;
