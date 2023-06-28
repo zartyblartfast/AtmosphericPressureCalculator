@@ -105,6 +105,18 @@ main {
   opacity: 1;
 }
 
+.collapsible {
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
 .visualization-section {
   display: flex;
   flex-direction: column;
