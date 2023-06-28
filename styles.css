@@ -60,6 +60,14 @@ main {
   display: block;
 }
 
+/* Tooltip container */
+.tooltip {
+  cursor: pointer; /* Add this line */
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
 /* Tooltip text */
 .tooltip .tooltiptext {
   visibility: hidden;
@@ -99,14 +107,6 @@ main {
 .tooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
-}
-
-.tooltip .tooltiptext i {
-  cursor: pointer;
-}
-
-.tooltip-icon i {
-  cursor: pointer;
 }
 
 .collapsible {
