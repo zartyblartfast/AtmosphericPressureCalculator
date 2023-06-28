@@ -101,6 +101,10 @@ main {
   opacity: 1;
 }
 
+.tooltip-icon {
+  cursor: pointer;
+}
+
 .collapsible {
   cursor: pointer;
   border: none;
