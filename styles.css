@@ -1,4 +1,4 @@
- body {
+body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
@@ -12,24 +12,34 @@ header {
 
 main {
   display: flex;
+  flex-direction: column;
   padding: 2px;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .hide-element {
   display: none;
 }
 
-.input-output-container {
+.main-content {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 750px; /* Added this line */
+}
+
+.input-output-container {
+  display: flex;
+  flex-direction: row;
   align-items: flex-start;
   margin-right: 20px;
-  padding-left: 50px; /* Add left padding */
+  padding-left: 50px;
+  width: 100%;
 }
 
 .input-section, .output-section {
-  width: 100%;
+  width: 50%;
 }
 
 .input-section label {
@@ -58,10 +68,25 @@ main {
   display: block;
 }
 
+.collapsible {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+.content {
+  display: none;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  width: 100%;
+}
+
 .visualization-section {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   flex-grow: 1;
-  min-width: 300px; /* Add a minimum width */
+  min-width: 300px;
+  width: 100%;
 }
