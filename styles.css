@@ -101,7 +101,7 @@ main {
   opacity: 1;
 }
 
-.tooltip-icon {
+.tooltip-icon i {
   cursor: pointer;
 }
 
