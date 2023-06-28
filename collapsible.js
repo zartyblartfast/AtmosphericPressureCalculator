@@ -3,7 +3,7 @@ window.onload = function() {
   var i;
 
   for (i = 0; i < coll.length; i++) {
-    coll[i].addEventListener("click", function() {
+    coll[i].addEventListener("click", function(event) {
       this.classList.toggle("active");
       var content = this.nextElementSibling;
       if (content.style.display === "none"){
@@ -16,7 +16,8 @@ window.onload = function() {
 
   // Add event listener for 'i' icon
   var infoIcon = document.getElementById("info-icon");
-  infoIcon.addEventListener("click", function() {
+  infoIcon.addEventListener("click", function(event) {
+    event.stopPropagation(); // Prevent triggering the parent's click event
     var detailedCalculationButton = document.getElementById("detailed-calculation-button");
     detailedCalculationButton.click();
   });
