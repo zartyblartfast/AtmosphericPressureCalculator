@@ -101,6 +101,10 @@ main {
   opacity: 1;
 }
 
+.tooltip .tooltiptext i {
+  cursor: pointer;
+}
+
 .tooltip-icon i {
   cursor: pointer;
 }
