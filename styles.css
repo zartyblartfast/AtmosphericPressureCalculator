@@ -12,9 +12,11 @@ header {
 
 main {
   display: flex;
+  flex-direction: column; /* Add this line */
   padding: 2px;
   align-items: flex-start;
 }
+
 
 .hide-element {
   display: none;
