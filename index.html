@@ -15,60 +15,53 @@
   </header>
 
   <main>
-    <div class="input-output-container">
-      <section class="input-section">
-        <h2>Inputs</h2>
-        <!-- Input fields and calculate button -->
-        <div>
-          <label for="sea-level-pressure">Pressure at Sea Level (hPa):</label>
-          <input type="range" id="sea-level-pressure" min="800" max="1100" step="any" value="1013.25" required>
-          <input type="number" id="sea-level-pressure-number" min="800" max="1100" step="any" value="1013.25" required>
-        </div>
+    <div class="main-content">
+      <div class="input-output-container">
+        <section class="input-section">
+          <h2>Inputs</h2>
+          <!-- Input fields and calculate button -->
+          <div>
+            <label for="sea-level-pressure">Pressure at Sea Level (hPa):</label>
+            <input type="range" id="sea-level-pressure" min="800" max="1100" step="any" value="1013.25" required>
+            <input type="number" id="sea-level-pressure-number" min="800" max="1100" step="any" value="1013.25" required>
+          </div>
 
-        <!--
-        <div>
-          <label for="standard-temperature">Standard Temperature (°C):</label>
-          <input type="range" id="standard-temperature" min="-50" max="50" step="any" value="15" required>
-          <input type="number" id="standard-temperature-number" min="-50" max="50" step="any" value="15" required>
-        </div>
-        -->
-        
-        <div class="hide-element">
-          <label for="standard-temperature">Standard Temperature (°C):</label>
-          <input type="range" id="standard-temperature" min="-50" max="50" step="any" value="15" required>
-          <input type="number" id="standard-temperature-number" min="-50" max="50" step="any" value="15" required>
-        </div>
+          <div class="hide-element">
+            <label for="standard-temperature">Standard Temperature (°C):</label>
+            <input type="range" id="standard-temperature" min="-50" max="50" step="any" value="15" required>
+            <input type="number" id="standard-temperature-number" min="-50" max="50" step="any" value="15" required>
+          </div>
 
-        <div>
-          <label for="altitude">Altitude (km):</label>
-          <input type="range" id="altitude" min="0" max="100" step="any" value="0" required>
-          <input type="number" id="altitude-number" min="0" max="100" step="any" value="0" required>
-        </div>
-      </section>
+          <div>
+            <label for="altitude">Altitude (km):</label>
+            <input type="range" id="altitude" min="0" max="100" step="any" value="0" required>
+            <input type="number" id="altitude-number" min="0" max="100" step="any" value="0" required>
+          </div>
+        </section>
 
-      <section class="output-section">
-        <h2>Output</h2>
-        <!-- Output label for calculated pressure -->
-        <p>Calculated Pressure: <span id="calculated-pressure"></span>
-          <span class="tooltip">i
-            <span class="tooltiptext">
-              This calculation is based on the barometric formula and the International Standard Atmosphere (ISA) model. For more details, see our <a href="#detailed-calculation-method">Detailed Calculation Method</a> section.
+        <section class="output-section">
+          <h2>Output</h2>
+          <!-- Output label for calculated pressure -->
+          <p>Calculated Pressure: <span id="calculated-pressure"></span>
+            <span class="tooltip">i
+              <span class="tooltiptext">
+                This calculation is based on the barometric formula and the International Standard Atmosphere (ISA) model. For more details, see our <a href="#detailed-calculation-method">Detailed Calculation Method</a> section.
+              </span>
             </span>
-          </span>
-        </p>
+          </p>
+        </section>
+      </div>
+
+      <section class="visualization-section">
+        <!-- Visualization of atmosphere as a line and the chart -->
+        <canvas id="pressure-chart"></canvas>
       </section>
     </div>
-
-    <section class="visualization-section">
-      <!-- Visualization of atmosphere as a line and the chart -->
-      <canvas id="pressure-chart"></canvas>
-    </section>
 
     <button type="button" class="collapsible">Detailed Calculation Method</button>
     <div class="content">
       <p>Here is where you would put the detailed explanation of the calculation method...</p>
     </div>
-
   </main>
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0"></script>
