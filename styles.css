@@ -112,7 +112,7 @@ main {
 }
 
 .content {
-  max-height: 0;
+  display: none;
   overflow: hidden;
   transition: max-height 0.2s ease-out;
 }
