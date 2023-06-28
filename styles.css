@@ -28,6 +28,7 @@ main {
   margin-right: 20px;
   padding-left: 50px;
   width: 100%;
+  max-width: 900px; /* Added this line */
 }
 
 .input-section, .output-section {
@@ -81,4 +82,5 @@ main {
   flex-grow: 1;
   min-width: 300px;
   width: 100%;
+  max-width: 900px; /* Added this line */
 }
