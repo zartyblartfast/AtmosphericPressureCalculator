@@ -60,11 +60,6 @@ main {
   display: block;
 }
 
-/* Style for 'i' icon */
-#info-icon {
-  cursor: pointer;
-}
-
 .collapsible {
   cursor: pointer;
   border: none;
