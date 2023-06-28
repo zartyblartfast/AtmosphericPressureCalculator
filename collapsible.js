@@ -13,4 +13,11 @@ window.onload = function() {
       } 
     });
   }
+
+  // Add event listener for 'i' icon
+  var infoIcon = document.getElementById("info-icon");
+  infoIcon.addEventListener("click", function() {
+    var detailedCalculationButton = document.getElementById("detailed-calculation-button");
+    detailedCalculationButton.click();
+  });
 }
