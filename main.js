@@ -83,8 +83,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Add event listener for 'i' icon
-var tooltip = document.querySelector(".tooltip");
-tooltip.addEventListener("click", function() {
+var infoIcon = document.getElementById("info-icon");
+infoIcon.addEventListener("click", function() {
   var detailedCalculationButton = document.getElementById("detailed-calculation-button");
   detailedCalculationButton.click();
 });
+
