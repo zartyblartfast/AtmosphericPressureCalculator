@@ -26,7 +26,7 @@ main {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 600px; /* Added this line */
+  max-width: 750px; /* Added this line */
 }
 
 .input-output-container {
