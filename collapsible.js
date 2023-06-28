@@ -1,21 +1,23 @@
-var coll = document.getElementsByClassName("collapsible");
-var i;
+window.onload = function() {
+  var coll = document.getElementsByClassName("collapsible");
+  var i;
 
-for (i = 0; i < coll.length; i++) {
-  coll[i].addEventListener("click", function() {
-    this.classList.toggle("active");
-    var content = this.nextElementSibling;
-    if (content.style.display === "none"){
-      content.style.display = "block";
-    } else {
-      content.style.display = "none";
-    } 
+  for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.display === "none"){
+        content.style.display = "block";
+      } else {
+        content.style.display = "none";
+      } 
+    });
+  }
+
+  // Add event listener for 'i' icon
+  var tooltip = document.querySelector(".tooltip");
+  tooltip.addEventListener("click", function() {
+    var detailedCalculationButton = document.getElementById("detailed-calculation-button");
+    detailedCalculationButton.click();
   });
 }
-
-// Add event listener for 'i' icon
-var tooltip = document.querySelector(".tooltip");
-tooltip.addEventListener("click", function() {
-  var detailedCalculationButton = document.getElementById("detailed-calculation-button");
-  detailedCalculationButton.click();
-});
